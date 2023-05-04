@@ -31,4 +31,3 @@ Shared repository for the GDR project
 - Guo Xuo dog
 - Kung Fu juice
 - Leather talisman
-- sssss
