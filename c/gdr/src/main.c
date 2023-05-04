@@ -5,25 +5,15 @@
 #include <math.h>
 #include <malloc.h>
 #include "../lib/info.h"
+#include "../lib/data.h"
 
-int main (void) {
-    
-    // Struct per contenere le informazioni dei mondi
-    typedef struct {
+Character myCharacter;
+Character loadedCharacter;
 
-        char *name;
-        double mult;
-    } worlds;
+int main() {
 
-    worlds world1;
-
-
-    // Struct per contenere le statistiche del player
-    typedef struct {
-
-        char *name;
-        double dmg_mul;
-    } characters;
+    create_character(&myCharacter, &loadedCharacter);
 
     return 0;
 }
+
