@@ -9,22 +9,77 @@
  * Posizionate i tavoli a debita distanza l'uno dall'altro, così da consentire ai ccamerieri di passarci accanto
  * */
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #define SIZE 80
+#define BIG_TABLE 6
+#define SMALL_TABLE 2
+#define MID_TABLE 4
 
 void create_tables (int [][SIZE]);
+void print_tables (const int [][SIZE]);
 
 int main (void) {
 
-    int tables[SIZE][SIZE];
+    srand(time(NULL));
+    int tables[SIZE][SIZE] = {0};
 
     create_tables(tables);
+    print_tables(tables);
 
     return 0;
 }
 
 void create_tables (int tables[][SIZE]) {
-    for (size_t i = 0; i < SIZE; i++) {
 
+    for (size_t i = 0; i < SIZE - 1; i += 3) {
+        for (size_t j = 0; j < SIZE - SMALL_TABLE - 1; j++) {
+
+            printf("\n%4ld%4ld\n", i, j);
+            if (j < SIZE - BIG_TABLE) {
+                if (rand() % 2 == 0) {
+                    puts("Creating Big Table");
+                    for (size_t k = j; k < j + BIG_TABLE; k++) {
+                        tables[i][k] = BIG_TABLE * 2;
+                        tables[i + 1][k] = BIG_TABLE * 2;
+                    }
+                    j += BIG_TABLE + 1;
+                }
+            }
+
+            if (j < SIZE - MID_TABLE) {
+                if (rand() % 2 == 1) {
+                    puts("Creating Mid Table");
+                    for (size_t k = j; k < j + MID_TABLE; k++) {
+                        tables[i][k] = MID_TABLE * 2;
+                        tables[i + 1][k] = MID_TABLE * 2;
+                    }
+                    j += MID_TABLE + 1;
+                }
+            }
+
+            if (j < SIZE - SMALL_TABLE) {
+                if (rand() % 2 == 0) {
+                    puts("Creating Small Table");
+                    for (size_t k = j; k < j + SMALL_TABLE; k++) {
+                        tables[i][k] = SMALL_TABLE * 2;
+                        tables[i + 1][k] = SMALL_TABLE * 2;
+                    }
+                    j += SMALL_TABLE + 1;
+                }
+            }
+        }
     }
+    return;
+}
+
+void print_tables (const int tables[][SIZE]) {
+    for (size_t i = 0; i < SIZE; i++) {
+        for (size_t j = 0; j < SIZE; j++) {
+            printf("%3d", tables[i][j]);
+        }
+        puts("");
+    }
+    return;
 }
