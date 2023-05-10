@@ -17,13 +17,14 @@
 #define SMALL_TABLE 2
 #define MID_TABLE 4
 
-void create_tables (int [][SIZE]);
-void print_tables (const int [][SIZE]);
+void create_tables (double [][SIZE]);
+void print_tables (const double [][SIZE]);
+void assign_tables (double [][SIZE]);
 
 int main (void) {
 
     srand(time(NULL));
-    int tables[SIZE][SIZE] = {0};
+    double tables[SIZE][SIZE] = {0};
 
     create_tables(tables);
     print_tables(tables);
@@ -31,7 +32,7 @@ int main (void) {
     return 0;
 }
 
-void create_tables (int tables[][SIZE]) {
+void create_tables (double tables[][SIZE]) {
 
     for (size_t i = 0; i < SIZE - 1; i += 3) {
         for (size_t j = 0; j < SIZE - SMALL_TABLE - 1; j++) {
@@ -74,7 +75,7 @@ void create_tables (int tables[][SIZE]) {
     return;
 }
 
-void print_tables (const int tables[][SIZE]) {
+void print_tables (const double tables[][SIZE]) {
     for (size_t i = 0; i < SIZE; i++) {
         for (size_t j = 0; j < SIZE; j++) {
             printf("%3d", tables[i][j]);
