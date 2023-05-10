@@ -11,47 +11,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define SIZE 80
 #define BIG_TABLE 6
 #define SMALL_TABLE 2
 #define MID_TABLE 4
 
-void create_tables (double [][SIZE]);
+int create_tables (double [][SIZE]);
+bool assign_tables (double [][SIZE]);
+
+//debug
 void print_tables (const double [][SIZE]);
-void assign_tables (double [][SIZE]);
 
 int main (void) {
 
     srand(time(NULL));
     double tables[SIZE][SIZE] = {0};
 
-    create_tables(tables);
-    print_tables(tables);
+    int table_counter = create_tables(tables);
+    printf("Tables: %d\n\n", table_counter);
+    // print_tables(tables);
+
+    for (int i = 0; i < table_counter && assign_tables(tables); i++);
 
     return 0;
 }
 
-void create_tables (double tables[][SIZE]) {
+int create_tables (double tables[][SIZE]) {
 
+    int table_counter;;
     for (size_t i = 0; i < SIZE - 1; i += 3) {
         for (size_t j = 0; j < SIZE - SMALL_TABLE - 1; j++) {
 
-            printf("\n%4ld%4ld\n", i, j);
             if (j < SIZE - BIG_TABLE) {
                 if (rand() % 2 == 0) {
-                    puts("Creating Big Table");
-                    for (size_t k = j; k < j + BIG_TABLE; k++) {
-                        tables[i][k] = BIG_TABLE * 2;
-                        tables[i + 1][k] = BIG_TABLE * 2;
-                    }
-                    j += BIG_TABLE + 1;
-                }
-            }
-
-            if (j < SIZE - MID_TABLE) {
-                if (rand() % 2 == 1) {
-                    puts("Creating Mid Table");
+                    table_counter++;
                     for (size_t k = j; k < j + MID_TABLE; k++) {
                         tables[i][k] = MID_TABLE * 2;
                         tables[i + 1][k] = MID_TABLE * 2;
@@ -62,7 +57,7 @@ void create_tables (double tables[][SIZE]) {
 
             if (j < SIZE - SMALL_TABLE) {
                 if (rand() % 2 == 0) {
-                    puts("Creating Small Table");
+                    table_counter++;
                     for (size_t k = j; k < j + SMALL_TABLE; k++) {
                         tables[i][k] = SMALL_TABLE * 2;
                         tables[i + 1][k] = SMALL_TABLE * 2;
@@ -72,13 +67,74 @@ void create_tables (double tables[][SIZE]) {
             }
         }
     }
-    return;
+    return table_counter;
+}
+
+bool assign_tables (double tables[][SIZE]) {
+
+    bool perfect_fit(double [][SIZE], const double *const);
+    bool bigger(double [][SIZE], const double *const);
+
+    // puts("Tables range from 2 to 8 seats");
+    double people = 8;
+    // puts("How many people are you?");
+    // scanf("%le", &people);
+
+    if (perfect_fit(tables, &people)) {
+        return true;
+    } else if (bigger(tables, &people)) {
+        return true;
+    }
+
+    puts("We don't have any free table that big!");
+
+    char sel;
+    puts("Continue? [y/n]");
+    scanf("%s", &sel);
+    puts("");
+
+    if (sel == 'y' || sel == 'Y') {
+        return true;
+    }
+    return false;
+}
+
+bool perfect_fit(double tables[][SIZE], const double *const people) {
+
+    for (size_t i = 0; i < SIZE - 1; i += 3) {
+        for (size_t k = 0; k < SIZE; k++) {
+            if (tables[i][k] * 10 == *people * 10) {
+                for (size_t j = k; j < k + *people; j++) {
+                    tables[i][j] += 0.1;
+                    tables[i + i][j] += 0.1;
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool bigger(double tables[][SIZE], const double *const people) {
+
+    for (size_t i = 0; i < SIZE - 1; i += 3) {
+        for (size_t k = 0; k < SIZE; k++) {
+            if (tables[i][k] * 10 >= *people * 10) {
+                for (size_t j = k; j < k + *people; j++) {
+                    tables[i][j] += 0.1;
+                    tables[i + i][j] += 0.1;
+                }
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 void print_tables (const double tables[][SIZE]) {
     for (size_t i = 0; i < SIZE; i++) {
         for (size_t j = 0; j < SIZE; j++) {
-            printf("%3d", tables[i][j]);
+            printf("%3f", tables[i][j]);
         }
         puts("");
     }

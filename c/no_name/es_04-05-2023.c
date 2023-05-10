@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -9,13 +10,15 @@
 #define HANDS 2
 
 void shuffle (unsigned int [][FACES]);
-void deal (unsigned int [][FACES], const char *const [], const char *const [], const int);
-void pairs (const unsigned int [][FACES], int *const, const int);
+void deal (unsigned int [][FACES], const char *const [], const char *const [], const int, int *const);
+void pairs (const int *const, int *const);
 void colour (const unsigned int [][FACES], int *const, const int);
-void straight (const unsigned int [][FACES], int *const, const int);
+void straight (const int *const, int *const);
 void better (const int *const);
+
 //debug
 void print_deck (const unsigned int [][FACES]);
+void print_dealt (const int *const);
 
 int main (void) {
     
@@ -35,14 +38,16 @@ int main (void) {
 
     for (int i = 0; i < HANDS; i++) {
 
-        deal(deck, face, suit, i);
+        int dealt[FACES] = {0};
+        deal(deck, face, suit, i, dealt);
 
+        // print_dealt(dealt);
         // print_deck(deck);
 
         // Check for combinations
-        pairs(deck, &hands[i], i);
+        pairs(dealt, &hands[i]);
         colour(deck, &hands[i], i);
-        straight(deck, &hands[i], i);
+        straight(dealt, &hands[i]);
 
         puts("");
     }
@@ -66,7 +71,7 @@ void shuffle (unsigned int deck[][FACES]) {
     return;
 }
 
-void deal (unsigned int deck[][FACES], const char *const face[], const char *const suit[], const int hand) {
+void deal (unsigned int deck[][FACES], const char *const face[], const char *const suit[], const int hand, int *const pdealt) {
 
     for (size_t card = 1, dealt = 0; dealt < POKER_HAND; card++) {
         for (size_t row = 0; row < SUITS; row++) {
@@ -74,6 +79,7 @@ void deal (unsigned int deck[][FACES], const char *const face[], const char *con
                 if (deck[row][col] == card) {
                     deck[row][col] = -hand;
                     dealt++;
+                    *(pdealt + col) += 1;
                     printf("%5s of %-8s\n", face[col], suit[row]);
                 }
             }
@@ -83,30 +89,39 @@ void deal (unsigned int deck[][FACES], const char *const face[], const char *con
     return;
 }
 
-void pairs (const unsigned int deck[][FACES], int *const current, const int hand) {
+void pairs (const int *const dealt, int *const current) {
 
-    for (size_t i; i < FACES; i++) {
+    int pairs = 0;
+    int tris = 0;
 
-        int c = 0;
-        for (size_t j = 0; j < SUITS; j++) {
-            if (deck[j][i] == -hand) {
-                c++;
-            }
+    for (size_t i = 0; i < FACES; i++) {    
+        if (*(dealt + i) == 2) {
+            pairs++;
         }
-
-        if (c == 2) {
-            puts("Pair");
-            *current += 1;
+        else if (*(dealt + i) == 3) {
+            tris++;
         }
-        else if (c == 3) {
-            puts("Tris");
-            *current += 2;
-        }
-        else if (c == 4) {
+        else if (*(dealt + i) == 4) {
             puts("Four of a kind!");
-            *current += 3;
+            *current += 7;
+            return;
         }
     }
+
+    if (pairs == 2) {
+        puts("Two Pair!");
+        *current += 2;
+    } else if (pairs == 1 && tris == 1) {
+        puts("Full House!");
+        *current += 6;
+    } else if (pairs == 1 && tris == 0) {
+        puts("Pair");
+        *current += 1;
+    } else if (pairs == 0 && tris == 1) {
+        puts("Three of a kind!");
+        *current += 3;
+    }
+
     return;
 }
 
@@ -123,28 +138,21 @@ void colour (const unsigned int deck[][FACES], int *const current, const int han
 
         if (c == 5) {
             puts("Color!");
-            *current += 4;
+            *current += 5;
         }
     }
 
     return;
 }
 
-void straight (const unsigned int deck[][FACES], int *const current, const int hand) {
+void straight (const int *const dealt, int *const current) {
 
-    for (size_t i = 0; i < SUITS; i++) {
-        for (size_t j = 0; j < FACES - 4; j++) {
-            if (deck[i][j] == -hand) {
-                int c = 1;
-                for (size_t k = j + 1; k < j + 5; k++) {
-                    if (deck[i][k] == -hand) {
-                        c++;
-                    }
-                }
-
-                if (c == 5) {
+    for (size_t i = 0; i < FACES; i++) {
+        if (*(dealt + i) != 0) {
+            for (size_t k = i; *(dealt + k) != 0; k++) {
+                if (k == i + 4) {
                     puts("Straight!");
-                    *current += 5;
+                    *current += 4;
                 }
             }
         }
@@ -171,5 +179,13 @@ void print_deck (const unsigned int deck[][FACES]) {
         }
         puts("");
     }
+    return;
+}
+
+void print_dealt (const int *const dealt) {
+    for (size_t i = 0; i < FACES; i++) {
+        printf("%2d", *(dealt + i));
+    }
+    puts("");
     return;
 }
