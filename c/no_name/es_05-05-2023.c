@@ -13,38 +13,49 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define SIZE 80
-#define BIG_TABLE 6
+#define SIZE 15
+#define BIG_TABLE 4
 #define SMALL_TABLE 2
-#define MID_TABLE 4
+#define MID_TABLE 3
 
-int create_tables (double [][SIZE]);
-bool assign_tables (double [][SIZE]);
+int create_tables (int [][SIZE]);
+bool assign_tables (int [][SIZE]);
 
 //debug
-void print_tables (const double [][SIZE]);
+void print_tables (const int [][SIZE]);
 
 int main (void) {
 
     srand(time(NULL));
-    double tables[SIZE][SIZE] = {0};
+    int tables[SIZE][SIZE] = {0};
 
     int table_counter = create_tables(tables);
     printf("Tables: %d\n\n", table_counter);
-    // print_tables(tables);
+    print_tables(tables);
 
-    for (int i = 0; i < table_counter && assign_tables(tables); i++);
+    while(assign_tables(tables));
 
     return 0;
 }
 
-int create_tables (double tables[][SIZE]) {
+int create_tables (int tables[][SIZE]) {
 
-    int table_counter;;
+    int table_counter;
     for (size_t i = 0; i < SIZE - 1; i += 3) {
         for (size_t j = 0; j < SIZE - SMALL_TABLE - 1; j++) {
 
             if (j < SIZE - BIG_TABLE) {
+                if (rand() % 2 == 0) {
+                    table_counter++;
+                    for (size_t k = j; k < j + BIG_TABLE; k++) {
+                        tables[i][k] = BIG_TABLE * 2;
+                        tables[i + 1][k] = BIG_TABLE * 2;
+                    }
+                    j += BIG_TABLE + 1;
+                }
+            }
+
+            if (j < SIZE - MID_TABLE) {
                 if (rand() % 2 == 0) {
                     table_counter++;
                     for (size_t k = j; k < j + MID_TABLE; k++) {
@@ -70,43 +81,50 @@ int create_tables (double tables[][SIZE]) {
     return table_counter;
 }
 
-bool assign_tables (double tables[][SIZE]) {
+bool assign_tables (int tables[][SIZE]) {
 
-    bool perfect_fit(double [][SIZE], const double *const);
-    bool bigger(double [][SIZE], const double *const);
+    bool perfect_fit(int [][SIZE], const int *const);
+    bool bigger(int [][SIZE], const int *const);
 
     // puts("Tables range from 2 to 8 seats");
-    double people = 8;
+    int people;
     // puts("How many people are you?");
-    // scanf("%le", &people);
+    scanf("%d", &people);
 
     if (perfect_fit(tables, &people)) {
+        // print_tables(tables);
+        puts("PF");
         return true;
     } else if (bigger(tables, &people)) {
+        puts("B");
         return true;
-    }
+    } else {
+        puts("We don't have any free table that big!");
 
-    puts("We don't have any free table that big!");
+        char sel;
+        puts("Continue? [y/n]");
+        
+        do {
+            scanf("%s", &sel);
+        } while (sel != 'y' && sel != 'Y' && sel != 'n' && sel != 'N');
+        puts("");
 
-    char sel;
-    puts("Continue? [y/n]");
-    scanf("%s", &sel);
-    puts("");
-
-    if (sel == 'y' || sel == 'Y') {
-        return true;
+        if (sel == 'y' || sel == 'Y') {
+            return true;
+        }
     }
     return false;
 }
 
-bool perfect_fit(double tables[][SIZE], const double *const people) {
+bool perfect_fit(int tables[][SIZE], const int *const people) {
 
     for (size_t i = 0; i < SIZE - 1; i += 3) {
-        for (size_t k = 0; k < SIZE; k++) {
-            if (tables[i][k] * 10 == *people * 10) {
+        for (size_t k = 0; k < SIZE - SMALL_TABLE; k++) {
+            if (tables[i][k] == *people) {
+                printf("%d\t%d\n", tables[i][k], *people);
                 for (size_t j = k; j < k + *people; j++) {
-                    tables[i][j] += 0.1;
-                    tables[i + i][j] += 0.1;
+                    tables[i][j] *= 10;
+                    tables[i + 1][j] *= 10;
                 }
                 return true;
             }
@@ -115,14 +133,15 @@ bool perfect_fit(double tables[][SIZE], const double *const people) {
     return false;
 }
 
-bool bigger(double tables[][SIZE], const double *const people) {
+bool bigger(int tables[][SIZE], const int *const people) {
 
     for (size_t i = 0; i < SIZE - 1; i += 3) {
-        for (size_t k = 0; k < SIZE; k++) {
-            if (tables[i][k] * 10 >= *people * 10) {
+        for (size_t k = 0; k < SIZE - SMALL_TABLE; k++) {
+            if (tables[i][k] >= *people && tables[i][k] < 10) {
+                printf("%d\t%d\n", tables[i][k], *people);
                 for (size_t j = k; j < k + *people; j++) {
-                    tables[i][j] += 0.1;
-                    tables[i + i][j] += 0.1;
+                    tables[i][j] *= 10;
+                    tables[i + 1][j] *= 10;
                 }
                 return true;
             }
@@ -131,10 +150,10 @@ bool bigger(double tables[][SIZE], const double *const people) {
     return false;
 }
 
-void print_tables (const double tables[][SIZE]) {
+void print_tables (const int tables[][SIZE]) {
     for (size_t i = 0; i < SIZE; i++) {
         for (size_t j = 0; j < SIZE; j++) {
-            printf("%3f", tables[i][j]);
+            printf("%2d", tables[i][j]);
         }
         puts("");
     }
