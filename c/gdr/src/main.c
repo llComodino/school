@@ -1,18 +1,19 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
-#include <malloc.h>
 #include "../lib/info.h"
 #include "../lib/data.h"
+#include "../lib/battle.h"
 
 Character myCharacter;
 Character loadedCharacter;
+Foes currentFoe;
 
-int main() {
+int main(void) {
 
     create_character(&myCharacter, &loadedCharacter);
+
+    foe_description(&currentFoe);
+
+    battle(&myCharacter, &currentFoe);
 
     return 0;
 }
