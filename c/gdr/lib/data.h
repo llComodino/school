@@ -2,16 +2,17 @@
 #define DATA_H
 
 #include <stdbool.h>
+#define BUFFER 32
 
 typedef struct {
-    int id;
+    char name[BUFFER];
     int dmg;
     bool ranged;
     bool magic;
 } Weapons;
 
 typedef struct {
-    char name[32];
+    char name[BUFFER];
     int level;
     int character_class;
     int hp;
@@ -21,18 +22,17 @@ typedef struct {
 } Character;
 
 typedef struct {
-    char name[32];
+    char name[BUFFER];
     int level;
     int character_class;
     int hp;
     Weapons weapon;
-    bool alive;
+    bool ranged;
+    bool magic;
 } Foes;
 
-void load_data (Character *character, const char *const filename);
+void load_data (Character *const, const char *const);
 
-void create_character (Character *myCharacter, Character *loadedCharacter);
-
-bool battle (Character *myCharacter, Foes *currentFoe);
+void create_character (Character *const);
 
 #endif // !DATA_H

@@ -5,11 +5,10 @@
 #include <stdio.h>
 
 void save_data (Character * character, const char *const filename);
-#define BUF 128
 
 void world_info (void);
 
-void print_character_info (Character *);
+void print_character_info (const Character *const);
 /*    WIP ------------ WIP 
  *
 void class_info (void) {

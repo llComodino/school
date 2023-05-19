@@ -41,7 +41,7 @@ int main (void) {
         int dealt[FACES] = {0};
         deal(deck, face, suit, i, dealt);
 
-        // print_dealt(dealt);
+        print_dealt(dealt);
         // print_deck(deck);
 
         // Check for combinations
