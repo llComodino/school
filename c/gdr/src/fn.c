@@ -10,7 +10,28 @@
 #define PATH_BUF 64
 #define BUF 128
 #define CLASSES 4
-#define WEAPONS 4
+#define WEAPONS 10
+
+const char *weapons[WEAPONS] = {
+    
+    // Melee
+    "Kyrsblade",    // Sword
+    "Tanto",        // Knife | + poison
+    "Fists",        // Fists | + physical dmg
+
+    // Ranged 
+    "Flintlock",         // Flintlock
+    "Obsidian Bow",      // Bow + corruption
+    "Shuriken",          // Shuriken | low dmg [multiple throws]
+
+    // Magic [melee]
+    "The Sinister Steel",       // Magical Daggers + [strong]corruption
+    "Orb",                      // Magical Orb + [strong]fire
+    
+    // Magic [ranged]
+    "Cesy Staff",               // Magical Staff + [strong]physical boost
+    "Grimoire"  ,               // Enchanted book + [strong]fire
+};
 
 const char *classes[CLASSES] = {
     "Warrior",
@@ -18,8 +39,6 @@ const char *classes[CLASSES] = {
     "Assassin",
     "Mage"
 };
-
-Weapons weapons[WEAPONS];
 
 void world_info (void) {
 
@@ -106,19 +125,27 @@ void load_data (Character *const character, const char *const filename) {
     fscanf(file, "%d", &value);
     character->magic = value;
 
-    int weapon = rand() % 4;
-    Weapons charWeapon = {
-        "Sesso", 
-        5, 
-        true, 
-        false
-    };
+    load_weapon(character->weapon);
 
-    character->weapon = charWeapon;
-    
     fclose(file);
 
     return;
+}
+
+void assign_weapon(Weapons *const weapon) {
+    srand(time(NULL));
+    short tmp = rand() % 10;
+
+    char path[PATH_BUF] = "assets/weapons/";
+    strcat(path, weapons[tmp]);
+    strcat(path, ".txt");
+
+    FILE *file = fopen(path, "r");
+
+    weapon->id = tmp;
+    fscanf(file, "%s", weapon->name);
+    fscanf(file, "%d", weapon->dmg);
+
 }
 
 void create_character (Character *const character) {

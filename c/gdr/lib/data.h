@@ -4,11 +4,17 @@
 #include <stdbool.h>
 #define BUFFER 32
 
+enum Status {ongoing, won, lost};
+enum playerStatus {base, poisoned, burning};
+enum Item {health_potion, poison, strength_potion, firebomb};
+enum Weapon {kyrsblade, tanto, fists, flintlock, bow, shuriken, grimoire, orb, staff, sinister_steel};
+enum Type {melee, ranged, magic, magic_melee, magic_ranged};
+
 typedef struct {
+    enum Weapon id;
     char name[BUFFER];
     int dmg;
-    bool ranged;
-    bool magic;
+    enum Type type;
 } Weapons;
 
 typedef struct {
@@ -17,8 +23,7 @@ typedef struct {
     int character_class;
     int hp;
     Weapons weapon;
-    bool ranged;
-    bool magic;
+    enum Type type;
 } Character;
 
 typedef struct {
@@ -27,9 +32,15 @@ typedef struct {
     int character_class;
     int hp;
     Weapons weapon;
-    bool ranged;
-    bool magic;
+    enum Type type;
 } Foes;
+
+typedef struct {
+    enum Item type;
+    char namep[BUFFER];
+    int modifier;
+    int available;
+} Items;
 
 void load_data (Character *const, const char *const);
 

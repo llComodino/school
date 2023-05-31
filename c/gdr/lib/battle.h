@@ -3,6 +3,8 @@
 
 #include "data.h"
 
+void assign_weapon(Weapons *const);
+
 void foe_description(Foes *);
 
 void load_foe(Foes *, const char *const);
