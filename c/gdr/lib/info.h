@@ -4,11 +4,11 @@
 #include "data.h"
 #include <stdio.h>
 
-void save_data (Character * character, const char *const filename);
+void save_data (Player * character, const char *const filename);
 
 void world_info (void);
 
-void print_character_info (const Character *const);
+void print_character_info (const Player *const);
 /*    WIP ------------ WIP 
  *
 void class_info (void) {

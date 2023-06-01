@@ -5,10 +5,10 @@
 
 void assign_weapon(Weapons *const);
 
-void foe_description(Foes *);
+void foe_description(Player *);
 
-void load_foe(Foes *, const char *const);
+void load_foe(Player *, const char *const);
 
-bool battle (Character *, const char *const);
+bool battle (Player *, const char *const);
 
 #endif // !BATTLE_H

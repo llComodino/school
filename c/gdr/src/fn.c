@@ -25,12 +25,12 @@ const char *weapons[WEAPONS] = {
     "Shuriken",          // Shuriken | low dmg [multiple throws]
 
     // Magic [melee]
-    "The Sinister Steel",       // Magical Daggers + [strong]corruption
+    "Grimoire"  ,               // Enchanted book + [strong]fire
     "Orb",                      // Magical Orb + [strong]fire
     
     // Magic [ranged]
     "Cesy Staff",               // Magical Staff + [strong]physical boost
-    "Grimoire"  ,               // Enchanted book + [strong]fire
+    "The Sinister Steel",       // Magical Daggers + [strong]corruption
 };
 
 const char *classes[CLASSES] = {
@@ -60,16 +60,10 @@ void world_info (void) {
 
     fclose(file);
     
-    // FILE *file = fopen("thato_kehinde.txt", "r");
-    // while (file != NULL) {
-        // fgets(buffer, sizeof(buffer), file);
-        // printf("%s", buffer);
-    // }
-    
     return;
 }
 
-void save_data (Character *const character, const char *const filename) {
+void save_data (Player *const character, const char *const filename) {
 
     // Save the character data to a file
     char name[PATH_BUF] = "assets/characters/";
@@ -84,6 +78,7 @@ void save_data (Character *const character, const char *const filename) {
         return;
     }
 
+    fprintf(file, "%d\n", character->weapon_id);
     fprintf(file, "%s\n", character->name);
     fprintf(file, "%d\n", character->level);
     fprintf(file, "%d\n", character->character_class);
@@ -95,15 +90,16 @@ void save_data (Character *const character, const char *const filename) {
     return;
 }
 
-void load_data (Character *const character, const char *const filename) {
+void load_data (Player *const character, const char *const filename) {
     
+    void load_weapon(Player *const, const char *const);
     // Load the character data from the file into a struct
-    char name[PATH_BUF] = "assets/characters/";
-    strcat(name, filename);
-    strcat(name, ".txt");
+    char path[PATH_BUF] = "assets/characters/";
+    strcat(path, filename);
+    strcat(path, ".txt");
 
     int value;
-    FILE *file = fopen(name, "r");
+    FILE *file = fopen(path, "r");
  
     // Error handling
     if (file == NULL) {
@@ -112,23 +108,48 @@ void load_data (Character *const character, const char *const filename) {
     }
 
     fgets(character->name, sizeof(character->name), file);
-     character->name[strlen(character->name) - 1] = '\0';
+    character->name[strlen(character->name) - 1] = '\0';
 
     fscanf(file, "%d", &character->level);
     fscanf(file, "%d", &character->character_class);
     fscanf(file, "%d", &character->hp);
     fscanf(file, "%d", &character->type);
 
-    load_weapon(character->weapon);
+    load_weapon(character, path);
 
     fclose(file);
 
     return;
 }
 
-void assign_weapon(Weapons *const weapon) {
+void load_weapon(Player *const player, const char *const char_path) {
+    
+    char path[PATH_BUF] = "assets/weapons/";
+    
+    FILE *file;
+    fscanf((file = fopen(char_path, "r")), "%d", &player->weapon.id);
+    fclose(file);
+
+    player->weapon.name = weapons[player->weapon_id];
+
+    path = "assets/weapons/";
+    strcat(path, weapons[player->weapon.id]);
+    strcat(path, ".txt");
+
+    file = fopen(path, "r");
+
+    fscanf(file, "%d", &player->weapon.id);
+    fscanf(file, "%d", &player->weapon.dmg);
+    fscanf(file, "%d", &player->weapon.type);
+    fscanf(file, "%d", &player->weapon.mod);
+
+    return;
+}
+
+void assign_weapon(Player *const player) {
     srand(time(NULL));
     short tmp = rand() % 10;
+    player->weapon_id = tmp;
 
     char path[PATH_BUF] = "assets/weapons/";
     strcat(path, weapons[tmp]);
@@ -136,13 +157,15 @@ void assign_weapon(Weapons *const weapon) {
 
     FILE *file = fopen(path, "r");
 
-    weapon->id = tmp;
-    fscanf(file, "%s", weapon->name);
-    fscanf(file, "%d", weapon->dmg);
+    player->weapon.id = tmp;
+    strcat(player->weapon.name, weapons[tmp]);
 
+    load_weapon(player, const char *const char_path)
+
+    return;
 }
 
-void create_character (Character *const character) {
+void create_character (Player *const character) {
 
     char name[PATH_BUF] = "assets/characters/";
 
@@ -158,7 +181,7 @@ void create_character (Character *const character) {
 
         character->level = 1;
 
-        assign_weapon(&character->weapon);
+        assign_weapon(character);
 
         printf("Choose your character's class:\n\n");
         printf("0. %s\n1. %s\n2. %s\n3. %s\n\n> ", classes[0], classes[1], classes[2], classes[3]);
@@ -194,10 +217,12 @@ void create_character (Character *const character) {
         load_data(character, character->name);
     }
 
+    printf("\n\nYou've been assigned %s\n\n", weapons[character->weapon_id]);
+
     return;
 }
 
-void print_character_info(const Character *const character) {
+void print_character_info(const Player *const character) {
 
     // Print the loaded character data
     printf("%s:\n", character->name);
@@ -206,7 +231,7 @@ void print_character_info(const Character *const character) {
     return;
 }
 
-void load_foe(Foes *currentFoe, const char *const filename) {
+void load_foe(Player *currentFoe, const char *const filename) {
 
     // Load the foe data from the file into a struct
     char name[PATH_BUF] = "assets/foes/";
@@ -229,26 +254,31 @@ void load_foe(Foes *currentFoe, const char *const filename) {
     fscanf(file, "%d", &currentFoe->character_class);
     fscanf(file, "%d", &currentFoe->hp);
  
-    assign_weapon(&currentFoe->weapon);
+    assign_weapon(currentFoe);
 
     fclose(file);
 
     return;
 }
 
-void foe_description(Foes *currentFoe) {
+void foe_description(Player *currentFoe) {
     
     printf("\n\nName: %s\nLevel: %d\nClass: %s\n", currentFoe->name, currentFoe->level, classes[currentFoe->character_class]) ;
 }
 
-bool battle (Character *character, const char *const foename) {
+bool battle (Player *character, const char *const foename) {
 
-    Foes currentFoe;
+    Player currentFoe;
     load_foe(&currentFoe, foename);
     
-    int calculate_character_damage(const Character *const);
-    int calculate_foe_damage(const Foes *const);
+    int calculate_damage(const Player *const, Player *const, int *const, int *const, const int *const);
     int damage;
+
+    int char_poison_start;
+    int foe_poison_start;
+
+    int char_burn_start;
+    int foe_burn_start;
 
     for (int i = 0; i < 50; i++) {
 
@@ -265,15 +295,17 @@ bool battle (Character *character, const char *const foename) {
             printf("%s: %d hp\n%s: %d hp\n\n", character->name, character->hp, currentFoe.name, currentFoe.hp);
 
             if (i % 2) {
-                damage = calculate_foe_damage(&currentFoe);
+                damage = calculate_damage(&currentFoe, character, &char_poison_start, &char_burn_start, &i);
+
                 printf("\nYou've been dealt %i damage!\n", damage);
                 character->hp -= damage;
+                
             } else {
-                damage = calculate_character_damage(character);
+
+                damage = calculate_damage(&currentFoe, character, &foe_poison_start, &foe_burn_start, &i);
                 printf("\nYou dealt %i damage!\n", damage);
                 currentFoe.hp -= damage;
-            }
-            
+            }      
             char z;
             while ((z = getchar()) != '\n');
         }
@@ -281,31 +313,77 @@ bool battle (Character *character, const char *const foename) {
 
     puts("How did you even get this far in a battle?!\nMan, listen, you gotta go, seriously");
     character->hp = 100;
+    
     return false;
 }
 
-int calculate_character_damage(const Character *const character) {
+int calculate_damage(const Player *const attacker, Player *const character, int *const char_poisoned_at, int *const char_burned_at, const int *const i) {
 
     srand(time(NULL));
-    int damage = character->weapon.dmg + rand() % 10;
+    int damage = attacker->weapon.dmg + rand() % 10;
+    int number;
 
-    if (character->type == character->weapon.type) {
-        damage += character->weapon.dmg * 2;
-    } else if ((character->type == ranged && character->weapon.type == magic_ranged) || (character->type == melee && character->weapon.type == magic_melee)) {
-        damage += character->weapon.dmg;
-    } 
-    return damage;
-}
+    if (attacker->type == attacker->weapon.type) {
+        damage += attacker->weapon.dmg * 2;
+    } else if ((attacker->type == ranged && attacker->weapon.type == magic_ranged) || (attacker->type == melee && attacker->weapon.type == magic_melee)) {
+        damage += attacker->weapon.dmg;
+    }
 
-int calculate_foe_damage(const Foes *const foe) {
+    switch (attacker->weapon.mod) {
 
-    srand(time(NULL));
-    int damage = foe->weapon.dmg + rand() % 10;
+        case none:
+            break;
 
-    if (foe->type == foe->weapon.type) {
-        damage += foe->weapon.dmg * 2;
-    } else if ((foe->type == ranged && foe->weapon.type == magic_ranged) || (foe->type == melee && foe->weapon.type == magic_melee)) {
-        damage += foe->weapon.dmg;
+        case poisonus:
+            if (character->status != poisoned && (rand() % 4)) {
+                    
+                character->status = poisoned;
+                *char_burned_at = *i;
+            }
+                
+            if (character->status == poisoned) {
+                if (*i < *(char_poisoned_at) + 6) {
+                    int poison = 2 + rand() % 4;
+                    if (*i % 2) {
+                        printf("The poison affects your body for %d damage!", poison);
+                    } else {
+                        printf("The enemy suffers poisoning for %d damage!", poison);
+                    }
+                    character->hp -= poison;
+                } else {
+                    character->status = base;
+                }
+            }
+            break;
+        
+        case firing:
+            
+            if (character->status != burning && (rand() % 4)) {
+                    
+                character->status = burning;
+                *char_burned_at = *i;
+            }
+                
+            if (character->status == burning) {
+                if (*i < *(char_burned_at) + 6) {
+                    int fire = 2 + rand() % 4;
+                    if (*i % 2) {
+                        printf("\nThe flames burn you for %d damage!\n", fire);
+                    } else {
+                        printf("\nYour flames burned his flesh for %d damage!\n", fire);
+                    }
+                    character->hp -= fire;
+                } else {
+                    character->status = base;
+                }
+            }
+            break;
+                    
+        case rapid:
+            number = 1 + rand() % 4;
+            printf("He launches %d %s!", number, attacker->weapon.name);
+            damage = attacker->weapon.dmg * number;
+            break;
     }
     return damage;
 }

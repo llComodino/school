@@ -8,32 +8,27 @@ enum Status {ongoing, won, lost};
 enum playerStatus {base, poisoned, burning};
 enum Item {health_potion, poison, strength_potion, firebomb};
 enum Weapon {kyrsblade, tanto, fists, flintlock, bow, shuriken, grimoire, orb, staff, sinister_steel};
+enum WeaponModifier {none, poisonus, firing, rapid};
 enum Type {melee, ranged, magic, magic_melee, magic_ranged};
 
 typedef struct {
     enum Weapon id;
+    enum Type type;
+    enum WeaponModifier mod;
     char name[BUFFER];
     int dmg;
-    enum Type type;
 } Weapons;
 
 typedef struct {
+    enum playerStatus status;
+    enum Type type;
+    enum Weapon weapon_id;
     char name[BUFFER];
     int level;
     int character_class;
     int hp;
     Weapons weapon;
-    enum Type type;
-} Character;
-
-typedef struct {
-    char name[BUFFER];
-    int level;
-    int character_class;
-    int hp;
-    Weapons weapon;
-    enum Type type;
-} Foes;
+} Player;
 
 typedef struct {
     enum Item type;
@@ -42,8 +37,8 @@ typedef struct {
     int available;
 } Items;
 
-void load_data (Character *const, const char *const);
+void load_data (Player *const, const char *const);
 
-void create_character (Character *const);
+void create_character (Player *const);
 
 #endif // !DATA_H

@@ -3,7 +3,7 @@
 #include "../lib/data.h"
 #include "../lib/battle.h"
 
-Character loadedCharacter;
+Player loadedCharacter;
 
 int main(void) {
 
