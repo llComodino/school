@@ -88,8 +88,7 @@ void save_data (Character *const character, const char *const filename) {
     fprintf(file, "%d\n", character->level);
     fprintf(file, "%d\n", character->character_class);
     fprintf(file, "%d\n", character->hp);
-    fprintf(file, "%d\n", character->ranged);
-    fprintf(file, "%d\n", character->magic);
+    fprintf(file, "%d\n", character->type);
     
     fclose(file);
 
@@ -118,12 +117,7 @@ void load_data (Character *const character, const char *const filename) {
     fscanf(file, "%d", &character->level);
     fscanf(file, "%d", &character->character_class);
     fscanf(file, "%d", &character->hp);
-    
-    fscanf(file, "%d", &value);
-    character->ranged = value;
-    
-    fscanf(file, "%d", &value);
-    character->magic = value;
+    fscanf(file, "%d", &character->type);
 
     load_weapon(character->weapon);
 
@@ -163,15 +157,8 @@ void create_character (Character *const character) {
     if (fopen(name, "r") == NULL) {
 
         character->level = 1;
-        int weapon = rand() % 4;
-        Weapons characterWeapon = {
-            "Dagger", 
-            5, 
-            false, 
-            false
-        }; 
 
-        character->weapon = characterWeapon;
+        assign_weapon(&character->weapon);
 
         printf("Choose your character's class:\n\n");
         printf("0. %s\n1. %s\n2. %s\n3. %s\n\n> ", classes[0], classes[1], classes[2], classes[3]);
@@ -181,23 +168,19 @@ void create_character (Character *const character) {
         switch (character->character_class) {
 
             case 0:
-                character->ranged = false;
-                character->magic = false;
+                character->type = melee;
             break;
 
             case 1:
-                character->ranged = true;
-                character->magic = false;
+                character->type = ranged;
             break;
 
             case 2:
-                character->ranged = false;
-                character->magic = true;
+                character->type = magic_melee;
             break;
 
             case 3:
-                character->ranged = true;
-                character->magic = true;
+                character->type = magic_ranged;
             break;
         }
 
@@ -245,22 +228,9 @@ void load_foe(Foes *currentFoe, const char *const filename) {
     fscanf(file, "%d", &currentFoe->level);
     fscanf(file, "%d", &currentFoe->character_class);
     fscanf(file, "%d", &currentFoe->hp);
-    
-    fscanf(file, "%d", &value);
-    currentFoe->ranged = value;
-    
-    fscanf(file, "%d", &value);
-    currentFoe->magic = value;
+ 
+    assign_weapon(&currentFoe->weapon);
 
-    int weapon = rand() % 4;
-    Weapons foeWeapon = {
-        "Acido", 
-        5, 
-        true, 
-        false
-    };
-
-    currentFoe->weapon = foeWeapon;
     fclose(file);
 
     return;
@@ -319,9 +289,9 @@ int calculate_character_damage(const Character *const character) {
     srand(time(NULL));
     int damage = character->weapon.dmg + rand() % 10;
 
-    if (character->ranged == character->weapon.ranged && character->magic == character->weapon.magic) {
+    if (character->type == character->weapon.type) {
         damage += character->weapon.dmg * 2;
-    } else if (character->ranged == character->weapon.ranged || character->magic == character->weapon.magic) {
+    } else if ((character->type == ranged && character->weapon.type == magic_ranged) || (character->type == melee && character->weapon.type == magic_melee)) {
         damage += character->weapon.dmg;
     } 
     return damage;
@@ -332,9 +302,9 @@ int calculate_foe_damage(const Foes *const foe) {
     srand(time(NULL));
     int damage = foe->weapon.dmg + rand() % 10;
 
-    if (foe->ranged == foe->weapon.ranged && foe->magic == foe->weapon.magic) {
+    if (foe->type == foe->weapon.type) {
         damage += foe->weapon.dmg * 2;
-    } else if (foe->ranged == foe->weapon.ranged || foe->magic == foe->weapon.magic) {
+    } else if ((foe->type == ranged && foe->weapon.type == magic_ranged) || (foe->type == melee && foe->weapon.type == magic_melee)) {
         damage += foe->weapon.dmg;
     }
     return damage;
