@@ -4,30 +4,36 @@
 #include "../lib/battle.h"
 
 Player loadedCharacter;
+enum Status status = ongoing;
 
 int main(void) {
 
     // world_info();
     create_character(&loadedCharacter);
+    select_world();
 
-    while ((loadedCharacter.hp = battle(&loadedCharacter, "matteo_messina_denaro")) == false) {
-        printf("Do you wish to continue? [y(0) / n(1)]");
-        int z;
-        do {
-            scanf("%d", &z);
-        } while (z != 1 && z != 0);
+    while (status == ongoing) {
+        while ((loadedCharacter.hp = battle(&loadedCharacter, "matteo_messina_denaro")) == false) {
+            printf("\nAre you willing to test your luck yet another time? [0/1]");
+            int z;
+            do {
+                scanf("%d", &z);
+            } while (z != 1 && z != 0);
 
-        if (z) {
-            printf("We'll meet again, %s, just wait ...\n\n", loadedCharacter.name);
-            return 1;
+            if (z) {
+                printf("We'll meet again, %s, just wait ...\n\n", loadedCharacter.name);
+                return 1;
+            }
         }
-    }
+        
+        print_character_info(&loadedCharacter);
+        save_data(&loadedCharacter, loadedCharacter.name);
 
-    print_character_info(&loadedCharacter);
+        puts("Do you wish to explore further in this messed reality?");
+    }
 
     puts("What now?");
 
-    save_data(&loadedCharacter, loadedCharacter.name);
 
     return 0;
 }

@@ -130,9 +130,9 @@ void load_weapon(Player *const player, const char *const char_path) {
     fscanf((file = fopen(char_path, "r")), "%d", &player->weapon.id);
     fclose(file);
 
-    player->weapon.name = weapons[player->weapon_id];
+    strcat(player->weapon.name, weapons[player->weapon_id]);
 
-    path = "assets/weapons/";
+    strcpy(path, "assets/weapons/");
     strcat(path, weapons[player->weapon.id]);
     strcat(path, ".txt");
 
@@ -160,7 +160,7 @@ void assign_weapon(Player *const player) {
     player->weapon.id = tmp;
     strcat(player->weapon.name, weapons[tmp]);
 
-    load_weapon(player, const char *const char_path)
+    load_weapon(player, path);
 
     return;
 }
