@@ -10,10 +10,9 @@ int main(void) {
 
     // world_info();
     create_character(&loadedCharacter);
-    select_world();
 
     while (status == ongoing) {
-        while ((loadedCharacter.hp = battle(&loadedCharacter, "matteo_messina_denaro")) == false) {
+        while (!(loadedCharacter.hp = battle(&loadedCharacter, "IronJaw"))) {
             printf("\nAre you willing to test your luck yet another time? [0/1]");
             int z;
             do {
@@ -25,6 +24,8 @@ int main(void) {
                 return 1;
             }
         }
+
+        status = won;
         
         print_character_info(&loadedCharacter);
         save_data(&loadedCharacter, loadedCharacter.name);

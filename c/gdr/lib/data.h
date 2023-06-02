@@ -5,17 +5,18 @@
 #define BUFFER 32
 
 enum Status {ongoing, won, lost};
+enum World {thato, chanda};
 enum playerStatus {base, poisoned, burning};
-enum Item {health_potion, poison, strength_potion, firebomb};
+enum Item {health_potion, poison, strength_potion, firebomb, void_crystal};
 enum Weapon {kyrsblade, tanto, fists, flintlock, bow, shuriken, grimoire, orb, staff, sinister_steel};
-enum WeaponModifier {none, poisonus, firing, rapid};
+enum Modifier {none, poisonus, burn, rapid};
 enum Type {melee, ranged, magic, magic_melee, magic_ranged};
-enum Foe {shadowthorn, ironjaw, blackfire};
+enum Foe {ironjaw, shadowthorn, blackfire};
 
 typedef struct {
     enum Weapon id;
     enum Type type;
-    enum WeaponModifier mod;
+    enum Modifier mod;
     char name[BUFFER];
     int dmg;
 } Weapons;
@@ -33,9 +34,7 @@ typedef struct {
 
 typedef struct {
     enum Item type;
-    char namep[BUFFER];
-    int modifier;
-    int available;
+    char name[BUFFER];
 } Items;
 
 void load_data (Player *const, const char *const);

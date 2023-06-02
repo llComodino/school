@@ -12,6 +12,8 @@
 #define CLASSES 4
 #define WEAPONS 10
 
+typedef char arr[PATH_BUF] path;
+
 const char *weapons[WEAPONS] = {
     
     // Melee
@@ -158,7 +160,7 @@ void assign_weapon(Player *const player) {
     FILE *file = fopen(path, "r");
 
     player->weapon.id = tmp;
-    strcat(player->weapon.name, weapons[tmp]);
+    // strcat(player->weapon.name, weapons[tmp]);
 
     load_weapon(player, path);
 
@@ -227,6 +229,7 @@ void print_character_info(const Player *const character) {
     // Print the loaded character data
     printf("%s:\n", character->name);
     printf("Level: %d\n", character->level);
+    printf("Weapon: %s\n", character->weapon.name);
     printf("Class: %s\n", classes[character->character_class]);
     return;
 }
@@ -253,6 +256,8 @@ void load_foe(Player *currentFoe, const char *const filename) {
     fscanf(file, "%d", &currentFoe->level);
     fscanf(file, "%d", &currentFoe->character_class);
     fscanf(file, "%d", &currentFoe->hp);
+    fscanf(file, "%d", &currentFoe->weapon_id);
+    fscanf(file, "%d", &currentFoe->type);
  
     assign_weapon(currentFoe);
 
@@ -263,7 +268,7 @@ void load_foe(Player *currentFoe, const char *const filename) {
 
 void foe_description(Player *currentFoe) {
     
-    printf("\n\nName: %s\nLevel: %d\nClass: %s\n", currentFoe->name, currentFoe->level, classes[currentFoe->character_class]) ;
+    printf("\n\nName: %s\nLevel: %d\nClass: %s\n", currentFoe->name, currentFoe->level, classes[currentFoe->character_class]);
 }
 
 bool battle (Player *character, const char *const foename) {
@@ -272,6 +277,7 @@ bool battle (Player *character, const char *const foename) {
     load_foe(&currentFoe, foename);
     
     int calculate_damage(const Player *const, Player *const, int *const, int *const, const int *const);
+    int drop_item(Player *const, enum Item);
     int damage;
 
     int char_poison_start;
@@ -283,11 +289,11 @@ bool battle (Player *character, const char *const foename) {
     for (int i = 0; i < 50; i++) {
 
         if (character->hp <= 0) {
-            puts("Matteo Messina Denaro ti ha sciolto nell'acido");
+            puts("You died, meeeerda");
             character->hp = 100;
             return false;
         } else if (currentFoe.hp <= 0) {
-            puts("La polizia ha fermato Denaro prima dell'inevitabile.");
+            puts("You smashed all his theeth out of his mouth!");
             character->level += currentFoe.level;
             return true;
         } else {
@@ -297,14 +303,17 @@ bool battle (Player *character, const char *const foename) {
             if (i % 2) {
                 damage = calculate_damage(&currentFoe, character, &char_poison_start, &char_burn_start, &i);
 
-                printf("\nYou've been dealt %i damage!\n", damage);
+                printf("\n%s dealt you %i damage\n", currentFoe.name, damage);
                 character->hp -= damage;
                 
+                drop_item(&currentFoe, rand() % 5);
             } else {
 
-                damage = calculate_damage(&currentFoe, character, &foe_poison_start, &foe_burn_start, &i);
+                damage = calculate_damage(character, &currentFoe, &foe_poison_start, &foe_burn_start, &i);
                 printf("\nYou dealt %i damage!\n", damage);
                 currentFoe.hp -= damage;
+                
+                drop_item(character, rand() % 5);
             }      
             char z;
             while ((z = getchar()) != '\n');
@@ -336,7 +345,7 @@ int calculate_damage(const Player *const attacker, Player *const character, int 
 
         case poisonus:
             if (character->status != poisoned && (rand() % 4)) {
-                    
+                   
                 character->status = poisoned;
                 *char_burned_at = *i;
             }
@@ -356,7 +365,7 @@ int calculate_damage(const Player *const attacker, Player *const character, int 
             }
             break;
         
-        case firing:
+        case burn:
             
             if (character->status != burning && (rand() % 4)) {
                     
@@ -378,12 +387,18 @@ int calculate_damage(const Player *const attacker, Player *const character, int 
                 }
             }
             break;
-                    
+           
         case rapid:
-            number = 1 + rand() % 4;
+            number = 3 + rand() % 9;
             printf("He launches %d %s!", number, attacker->weapon.name);
             damage = attacker->weapon.dmg * number;
             break;
     }
     return damage;
+}
+
+void drop_item(Player *const player, enum Item type) {
+
+    path = "assets/items/";
+    
 }

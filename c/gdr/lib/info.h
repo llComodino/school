@@ -8,6 +8,8 @@ void save_data (Player * character, const char *const filename);
 
 void world_info (void);
 
+void select_world (void);
+
 void print_character_info (const Player *const);
 /*    WIP ------------ WIP 
  *
