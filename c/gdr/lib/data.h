@@ -7,7 +7,7 @@
 enum Status {ongoing, won, lost};
 enum World {thato, chanda};
 enum playerStatus {base, poisoned, burning};
-enum Item {health_potion, poison, strength_potion, firebomb, void_crystal};
+enum Item {health_potion, firebomb, void_crystal};
 enum Weapon {kyrsblade, tanto, fists, flintlock, bow, shuriken, grimoire, orb, staff, sinister_steel};
 enum Modifier {none, poisonus, burn, rapid};
 enum Type {melee, ranged, magic, magic_melee, magic_ranged};
@@ -22,6 +22,14 @@ typedef struct {
 } Weapons;
 
 typedef struct {
+    int poison_start;
+    int burn_start;
+    int strength_start;
+    int armor_start;
+    int boost_start;
+} Player_Modifiers;
+
+typedef struct {
     enum playerStatus status;
     enum Type type;
     enum Weapon weapon_id;
@@ -30,6 +38,7 @@ typedef struct {
     int character_class;
     int hp;
     Weapons weapon;
+    Player_Modifiers modifiers;
 } Player;
 
 typedef struct {

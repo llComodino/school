@@ -12,7 +12,7 @@ int main(void) {
     create_character(&loadedCharacter);
 
     while (status == ongoing) {
-        while (!(loadedCharacter.hp = battle(&loadedCharacter, "IronJaw"))) {
+        while (!(loadedCharacter.hp = battle(&loadedCharacter, "Shadowthorn"))) {
             printf("\nAre you willing to test your luck yet another time? [0/1]");
             int z;
             do {

@@ -11,8 +11,7 @@
 #define BUF 128
 #define CLASSES 4
 #define WEAPONS 10
-
-typedef char arr[PATH_BUF] path;
+#define ITEMS 5
 
 const char *weapons[WEAPONS] = {
     
@@ -40,6 +39,12 @@ const char *classes[CLASSES] = {
     "Archer",
     "Assassin",
     "Mage"
+};
+
+const char *items[ITEMS] = {
+    "Health Potion", 
+    "Firebomb",
+    "Void Crystal"
 };
 
 void world_info (void) {
@@ -276,17 +281,11 @@ bool battle (Player *character, const char *const foename) {
     Player currentFoe;
     load_foe(&currentFoe, foename);
     
-    int calculate_damage(const Player *const, Player *const, int *const, int *const, const int *const);
-    int drop_item(Player *const, enum Item);
+    int calculate_damage(const Player *const, Player *const, const int *const);
+    void drop_item(Player *const, Player *const, const int *const);
     int damage;
 
-    int char_poison_start;
-    int foe_poison_start;
-
-    int char_burn_start;
-    int foe_burn_start;
-
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < 100; i++) {
 
         if (character->hp <= 0) {
             puts("You died, meeeerda");
@@ -301,32 +300,32 @@ bool battle (Player *character, const char *const foename) {
             printf("%s: %d hp\n%s: %d hp\n\n", character->name, character->hp, currentFoe.name, currentFoe.hp);
 
             if (i % 2) {
-                damage = calculate_damage(&currentFoe, character, &char_poison_start, &char_burn_start, &i);
+                
+                drop_item(&currentFoe, character, &i);
+                damage = calculate_damage(&currentFoe, character, &i);
 
                 printf("\n%s dealt you %i damage\n", currentFoe.name, damage);
                 character->hp -= damage;
-                
-                drop_item(&currentFoe, rand() % 5);
             } else {
 
-                damage = calculate_damage(character, &currentFoe, &foe_poison_start, &foe_burn_start, &i);
+                drop_item(character, &currentFoe, &i);
+                damage = calculate_damage(character, &currentFoe, &i);
+                
                 printf("\nYou dealt %i damage!\n", damage);
                 currentFoe.hp -= damage;
-                
-                drop_item(character, rand() % 5);
             }      
             char z;
             while ((z = getchar()) != '\n');
         }
     }
 
-    puts("How did you even get this far in a battle?!\nMan, listen, you gotta go, seriously");
+    puts("How did you even get this far in a battle?\nI think it would be better to settle it as a draw ...\n\n");
     character->hp = 100;
     
     return false;
 }
 
-int calculate_damage(const Player *const attacker, Player *const character, int *const char_poisoned_at, int *const char_burned_at, const int *const i) {
+int calculate_damage(const Player *const attacker, Player *const character, const int *const i) {
 
     srand(time(NULL));
     int damage = attacker->weapon.dmg + rand() % 10;
@@ -347,11 +346,11 @@ int calculate_damage(const Player *const attacker, Player *const character, int 
             if (character->status != poisoned && (rand() % 4)) {
                    
                 character->status = poisoned;
-                *char_burned_at = *i;
+                character->modifiers.poison_start = *i;
             }
                 
             if (character->status == poisoned) {
-                if (*i < *(char_poisoned_at) + 6) {
+                if (*i < character->modifiers.poison_start + 6) {
                     int poison = 2 + rand() % 4;
                     if (*i % 2) {
                         printf("The poison affects your body for %d damage!", poison);
@@ -370,11 +369,11 @@ int calculate_damage(const Player *const attacker, Player *const character, int 
             if (character->status != burning && (rand() % 4)) {
                     
                 character->status = burning;
-                *char_burned_at = *i;
+                character->modifiers.burn_start = *i;
             }
                 
             if (character->status == burning) {
-                if (*i < *(char_burned_at) + 6) {
+                if (*i < character->modifiers.burn_start + 6) {
                     int fire = 2 + rand() % 4;
                     if (*i % 2) {
                         printf("\nThe flames burn you for %d damage!\n", fire);
@@ -397,8 +396,45 @@ int calculate_damage(const Player *const attacker, Player *const character, int 
     return damage;
 }
 
-void drop_item(Player *const player, enum Item type) {
+void drop_item(Player *const user, Player *const used_on, const int *const turn) {
 
-    path = "assets/items/";
-    
+    Items item;
+
+    if (rand() % 3) {
+        item.type = rand() % 3;
+        strcat(item.name, items[item.type]);
+
+        int mod;
+
+        switch (item.type) {
+            case health_potion:
+                mod = 15 + rand() % 15;
+                printf("%s used a %s\n%i hp restored\n", user->name, item.name, mod);
+                user->hp += mod;
+            break;
+        
+            case firebomb:
+                mod = 15 + rand() % 10;
+                printf("%s threw a bomb at %s for %i damage!\n", user->name, used_on->name, mod);
+                used_on->hp -= mod;
+            
+                if (used_on->status != burning && (rand() % 4)) {
+                    
+                    used_on->status = burning;
+                    used_on->modifiers.burn_start = *turn;
+                }
+            break;
+        
+            case void_crystal:
+                printf("%s life points were swapped with %s!!\n", user->name, used_on->name);
+                int mod = used_on->hp;
+                used_on->hp = user->hp;
+                user->hp = used_on->hp;
+            break;
+
+            default:
+            break;
+        }
+    }
+    return;
 }
