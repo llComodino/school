@@ -47,11 +47,11 @@ int main(void) {
                     return 2;
                 }
 
-                if (loadedCharacter.foe = ironjaw) {
+                if (loadedCharacter.foe == ironjaw) {
                     puts("You've finally succedeed in killing IronJaw!\nNow let's move on to Shadowthorn\n");
                 }
 
-                if (loadedCharacter.foe = ironjaw) {
+                if (loadedCharacter.foe == shadowthorn) {
                     puts("Impressive! You're still alive even after meeting Shadowthorn!\nI believe you are ready to fight the final boss\n");
                 }
             break;
@@ -62,11 +62,11 @@ int main(void) {
                     return 2;
                 }
                 
-                if (loadedCharacter.foe = virgy) {
+                if (loadedCharacter.foe == virgy) {
                     puts("You've finally succedeed in killing Virgy the Faithful!\nNow let's move on to Emily the Vampire\n");
                 }
 
-                if (loadedCharacter.foe = emily) {
+                if (loadedCharacter.foe == emily) {
                     puts("Impressive! You're still alive even after meeting Emily!\nI believe you are ready to fight the final boss\n");
                 }
             break;
