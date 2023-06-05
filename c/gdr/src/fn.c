@@ -7,12 +7,6 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define PATH_BUF 64
-#define BUF 128
-#define CLASSES 4
-#define WEAPONS 10
-#define ITEMS 5
-
 const char *weapons[WEAPONS] = {
     
     // Melee
@@ -50,22 +44,32 @@ const char *items[ITEMS] = {
 void world_info (void) {
 
     char buffer[BUF];
-    
+    char z;
+
     FILE *file = fopen("assets/world_info/thato_kehinde.txt", "r");
-    while (file != NULL) {
-        fscanf(file, "%s", buffer);
+    while (fgets(buffer, BUF, file) != NULL) {
+        printf("%s", buffer);
+    }
+    fclose(file);
+
+    // Clean the output stream
+    // Last char was '\n', if not removed the next cycle won't work
+    getchar();
+
+    // wait for user to press enter so he has time to read
+    while ((z = getchar()) != '\n');
+ 
+    puts("=================================================================================================================================\n");
+
+    file = fopen("assets/world_info/chanda_sung.txt", "r");
+    while (fgets(buffer, BUF, file) != NULL) {
         printf("%s", buffer);
     }
 
     fclose(file);
     
-    file = fopen("assets/world_info/chanda_sung.txt", "r");
-    while (file != NULL) {
-        fscanf(file, "%s", buffer);
-        printf("%s", buffer);
-    }
-
-    fclose(file);
+    // wait for user to press enter so he has time to read
+    while ((z = getchar()) != '\n');
     
     return;
 }
@@ -81,10 +85,12 @@ void save_data (Player *const character, const char *const filename) {
 
     // Error handling
     if (file == NULL) {
-        printf("Error: could not open file\n");
+        printf("Error: could not create/open file\n");
         return;
     }
 
+    fprintf(file, "%d\n", character->world);
+    fprintf(file, "%d\n", character->foe);
     fprintf(file, "%d\n", character->weapon_id);
     fprintf(file, "%s\n", character->name);
     fprintf(file, "%d\n", character->level);
@@ -113,6 +119,10 @@ void load_data (Player *const character, const char *const filename) {
         printf("Error: could not open file\n");
         return;
     }
+
+    fscanf(file, "%d", &character->world);
+    fscanf(file, "%d", &character->foe);
+    fscanf(file, "%d", &character->weapon_id);
 
     fgets(character->name, sizeof(character->name), file);
     character->name[strlen(character->name) - 1] = '\0';
@@ -216,10 +226,16 @@ void create_character (Player *const character) {
 
         character->hp = 100;
 
+        character->world = select_world();
+
+        character->foe = (character->world == thato ? ironjaw : virgy);
+
         save_data(character, character->name);
 
         print_character_info(character);
+    
     } else {
+
         printf("%s already exists, resuming...", character->name);
         load_data(character, character->name);
     }
@@ -227,6 +243,24 @@ void create_character (Player *const character) {
     printf("\n\nYou've been assigned %s\n\n", weapons[character->weapon_id]);
 
     return;
+}
+
+enum World select_world(void) {
+    world_info();
+
+    puts("Which world do you dare to explore?\n[0(thato) / 1(chanda)]");
+    int sel;
+    do {
+        scanf("%d", &sel);
+    } while (sel < 0 || sel > 1);
+
+    if (sel == 0) {
+        system("clear");
+        return thato;
+    }
+
+    system("clear");
+    return chanda;
 }
 
 void print_character_info(const Player *const character) {
@@ -242,7 +276,7 @@ void print_character_info(const Player *const character) {
 void load_foe(Player *currentFoe, const char *const filename) {
 
     // Load the foe data from the file into a struct
-    char name[PATH_BUF] = "assets/foes/";
+    char name[PATH_BUF] = "assets/foes/chanda/";
     strcat(name, filename);
     strcat(name, ".txt");
 

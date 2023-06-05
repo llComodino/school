@@ -3,6 +3,15 @@
 #include "../lib/data.h"
 #include "../lib/battle.h"
 
+const char *enemies[ENEMIES * WORLDS] = {
+    "IronJaw", 
+    "Shadowthorn", 
+    "Blackfire", 
+    "Virgy", 
+    "Emily", 
+    "Milly"
+};
+
 Player loadedCharacter;
 enum Status status = ongoing;
 
@@ -12,7 +21,7 @@ int main(void) {
     create_character(&loadedCharacter);
 
     while (status == ongoing) {
-        while (!(loadedCharacter.hp = battle(&loadedCharacter, "Shadowthorn"))) {
+        while (!(loadedCharacter.hp = battle(&loadedCharacter, "Milly"))) {
             printf("\nAre you willing to test your luck yet another time? [0/1]");
             int z;
             do {
@@ -32,9 +41,6 @@ int main(void) {
 
         puts("Do you wish to explore further in this messed reality?");
     }
-
-    puts("What now?");
-
 
     return 0;
 }

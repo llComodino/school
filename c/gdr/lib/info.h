@@ -8,25 +8,8 @@ void save_data (Player * character, const char *const filename);
 
 void world_info (void);
 
-void select_world (void);
+enum World select_world (void);
 
 void print_character_info (const Player *const);
-/*    WIP ------------ WIP 
- *
-void class_info (void) {
-    
-    FILE *fp;
-    fp = fopen("../assets/class_info/...", "r");
-    
-    char buf[BUF];
-    while (fgets(buf, BUF, fp) != NULL) {
-        printf("%s", buf);
-    }
 
-    fclose(fp);
-
-    return;
-}
-*
-*/
 #endif // !INFO_H
