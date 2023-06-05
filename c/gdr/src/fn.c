@@ -276,7 +276,14 @@ void print_character_info(const Player *const character) {
 void load_foe(Player *currentFoe, const char *const filename) {
 
     // Load the foe data from the file into a struct
-    char name[PATH_BUF] = "assets/foes/chanda/";
+    char name[PATH_BUF] = "assets/foes/";
+    char tmp[BUF];
+    if (currentFoe->world) {
+        strcat(name, "chanda/");
+    } else {
+        strcat(name, "thato/");
+    }
+
     strcat(name, filename);
     strcat(name, ".txt");
 
@@ -313,6 +320,8 @@ void foe_description(Player *currentFoe) {
 bool battle (Player *character, const char *const foename) {
 
     Player currentFoe;
+    currentFoe.world = character->world;
+
     load_foe(&currentFoe, foename);
     
     int calculate_damage(const Player *const, Player *const, const int *const);
