@@ -311,7 +311,7 @@ void load_foe(Player *currentFoe, const char *const filename) {
 
 void foe_description(Player *currentFoe) {
     
-    printf("\n\nName: %s\nLevel: %d\nClass: %s\n", currentFoe->name, currentFoe->level, classes[currentFoe->character_class]);
+    printf("\n\nName: %s\nLevel: %d\nWeapon: %s\nClass: %s\n\n", currentFoe->name, currentFoe->level, currentFoe->weapon.name, classes[currentFoe->character_class]);
 }
 
 bool battle (Player *character, const char *const foename) {
@@ -320,19 +320,21 @@ bool battle (Player *character, const char *const foename) {
     currentFoe.world = character->world;
 
     load_foe(&currentFoe, foename);
-    
+    foe_description(&currentFoe);
+
     int calculate_damage(const Player *const, Player *const, const int *const);
     void drop_item(Player *const, Player *const, const int *const);
     int damage;
+
+    character->hp = 100;
 
     for (int i = 0; i < 100; i++) {
 
         if (character->hp <= 0) {
             puts("You died, meeeerda");
-            character->hp = 100;
             return false;
         } else if (currentFoe.hp <= 0) {
-            puts("You smashed all his theeth out of his mouth!");
+            printf("You smashed %s!", currentFoe.name);
             character->level += currentFoe.level;
             return true;
         } else {
