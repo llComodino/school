@@ -147,7 +147,7 @@ void load_weapon(Player *const player, const char *const char_path) {
     fscanf((file = fopen(char_path, "r")), "%d", &player->weapon.id);
     fclose(file);
 
-    strcat(player->weapon.name, weapons[player->weapon_id]);
+    strcpy(player->weapon.name, weapons[player->weapon_id]);
 
     strcpy(path, "assets/weapons/");
     strcat(path, weapons[player->weapon.id]);
@@ -172,10 +172,7 @@ void assign_weapon(Player *const player) {
     strcat(path, weapons[tmp]);
     strcat(path, ".txt");
 
-    FILE *file = fopen(path, "r");
-
     player->weapon.id = tmp;
-    // strcat(player->weapon.name, weapons[tmp]);
 
     load_weapon(player, path);
 
@@ -431,8 +428,8 @@ int calculate_damage(const Player *const attacker, Player *const character, cons
             break;
            
         case rapid:
-            number = 3 + rand() % 9;
-            printf("He launches %d %s!", number, attacker->weapon.name);
+            number = 3 + rand() % 6;
+            printf("Launched %d %s!", number, attacker->weapon.name);
             damage = attacker->weapon.dmg * number;
             break;
     }
