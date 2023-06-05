@@ -22,7 +22,7 @@ int main(void) {
 
     while (status == ongoing) {
 
-        while (!(loadedCharacter.hp = battle(&loadedCharacter, enemies[loadedCharacter.foe]))) {
+        while (!(battle(&loadedCharacter, enemies[loadedCharacter.foe]))) {
             printf("\nAre you willing to test your luck yet another time? [0/1]");
             int z;
             do {
@@ -77,8 +77,11 @@ int main(void) {
 
         int sel;
         puts("Do you wish to explore further in this messed reality? [0/1]");
-        scanf("%d", &sel);
         
+        do {
+            scanf("%d", &sel);
+        } while (sel < 0 || sel > 1);
+
         if (sel) {
             puts("Then good luck for when you will come back...");
             return 1;
