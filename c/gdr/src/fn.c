@@ -266,7 +266,7 @@ void print_player_info(const Player *const character) {
     return;
 }
 
-void load_foe(Player *currentFoe, const char *const filename) {
+void load_foe(Player *const currentFoe, const char *const filename) {
 
     // Load the foe data from the file into a struct
     char name[PATH_BUF] = "assets/foes/";
@@ -305,7 +305,7 @@ void load_foe(Player *currentFoe, const char *const filename) {
     return;
 }
 
-bool battle (Player *character, const char *const foename) {
+bool battle (Player *const character, const char *const foename) {
 
     Player currentFoe;
     currentFoe.world = character->world;

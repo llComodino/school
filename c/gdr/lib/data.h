@@ -32,9 +32,6 @@ typedef struct {
 typedef struct {
     int poison_start;
     int burn_start;
-    int strength_start;
-    int armor_start;
-    int boost_start;
 } Player_Modifiers;
 
 typedef struct {
