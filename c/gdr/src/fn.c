@@ -1,5 +1,6 @@
 #include "../lib/data.h"
 #include "../lib/info.h"
+#include "../lib/battle.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -122,10 +123,6 @@ void load_data (Player *const character, const char *const filename) {
     fscanf(file, "%d", &character->world);
     fscanf(file, "%d", &character->foe);
     fscanf(file, "%d", &character->weapon_id);
-
-    fgets(character->name, sizeof(character->name), file);
-    character->name[strlen(character->name) - 1] = '\0';
-
     fscanf(file, "%d", &character->level);
     fscanf(file, "%d", &character->character_class);
     fscanf(file, "%d", &character->hp);
@@ -228,7 +225,7 @@ void create_character (Player *const character) {
 
         save_data(character, character->name);
 
-        print_character_info(character);
+        print_player_info(character);
     
     } else {
 
@@ -259,13 +256,13 @@ enum World select_world(void) {
     return chanda;
 }
 
-void print_character_info(const Player *const character) {
+void print_player_info(const Player *const character) {
 
     // Print the loaded character data
     printf("%s:\n", character->name);
     printf("Level: %d\n", character->level);
     printf("Weapon: %s\n", character->weapon.name);
-    printf("Class: %s\n", classes[character->character_class]);
+    printf("Class: %s\n\n\n", classes[character->character_class]);
     return;
 }
 
@@ -308,18 +305,13 @@ void load_foe(Player *currentFoe, const char *const filename) {
     return;
 }
 
-void foe_description(Player *currentFoe) {
-    
-    printf("\n\nName: %s\nLevel: %d\nWeapon: %s\nClass: %s\n\n", currentFoe->name, currentFoe->level, currentFoe->weapon.name, classes[currentFoe->character_class]);
-}
-
 bool battle (Player *character, const char *const foename) {
 
     Player currentFoe;
     currentFoe.world = character->world;
 
     load_foe(&currentFoe, foename);
-    foe_description(&currentFoe);
+    print_player_info(&currentFoe);
 
     int calculate_damage(const Player *const, Player *const, const int *const);
     void drop_item(Player *const, Player *const, const int *const);
@@ -392,7 +384,7 @@ int calculate_damage(const Player *const attacker, Player *const character, cons
                 
             if (character->status == poisoned) {
                 if (*i < character->modifiers.poison_start + 6) {
-                    int poison = 2 + rand() % 4;
+                    int poison = MIN_POISON + rand() % MAX_POISON;
                     if (*i % 2) {
                         printf("The poison affects your body for %d damage!", poison);
                     } else {
@@ -415,7 +407,7 @@ int calculate_damage(const Player *const attacker, Player *const character, cons
                 
             if (character->status == burning) {
                 if (*i < character->modifiers.burn_start + 6) {
-                    int fire = 2 + rand() % 4;
+                    int fire = MIN_BURN + rand() % MAX_BURN;
                     if (*i % 2) {
                         printf("\nThe flames burn you for %d damage!\n", fire);
                     } else {
@@ -429,7 +421,7 @@ int calculate_damage(const Player *const attacker, Player *const character, cons
             break;
            
         case rapid:
-            number = 3 + rand() % 6;
+            number = MIN_SHURIKEN + rand() % MAX_SHURIKEN;
             printf("Launched %d %s!", number, attacker->weapon.name);
             damage = attacker->weapon.dmg * number;
             break;
@@ -449,13 +441,13 @@ void drop_item(Player *const user, Player *const used_on, const int *const turn)
 
         switch (item.type) {
             case health_potion:
-                mod = 15 + rand() % 15;
+                mod = MIN_HEAL + rand() % MAX_HEAL;
                 printf("%s used a %s\n%i hp restored\n", user->name, item.name, mod);
                 user->hp += mod;
             break;
         
             case firebomb:
-                mod = 15 + rand() % 10;
+                mod = MIN_BOMB_DMG + rand() % MAX_BOMB_DMG;
                 printf("%s threw a bomb at %s for %i damage!\n", user->name, used_on->name, mod);
                 used_on->hp -= mod;
             

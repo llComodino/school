@@ -37,8 +37,7 @@ int main(void) {
 
         loadedCharacter.foe++;
         
-        print_character_info(&loadedCharacter);
-        save_data(&loadedCharacter, loadedCharacter.name);
+        print_player_info(&loadedCharacter);
 
         switch (loadedCharacter.world) {
             case thato:
@@ -75,6 +74,8 @@ int main(void) {
             break;
         }
 
+        save_data(&loadedCharacter, loadedCharacter.name);
+        
         int sel;
         puts("Do you wish to explore further in this messed reality? [0/1]");
         

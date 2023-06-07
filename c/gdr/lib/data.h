@@ -56,6 +56,8 @@ typedef struct {
     char name[BUFFER];
 } Items;
 
+void save_data (Player * character, const char *const filename);
+
 void load_data (Player *const, const char *const);
 
 void create_character (Player *const);
