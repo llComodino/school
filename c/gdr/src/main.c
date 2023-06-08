@@ -17,7 +17,6 @@ enum Status status = ongoing;
 
 int main(void) {
 
-    // world_info();
     create_character(&loadedCharacter);
 
     while (status == ongoing) {
@@ -35,38 +34,46 @@ int main(void) {
             }
         }
 
-        loadedCharacter.foe++;
-        
         print_player_info(&loadedCharacter);
 
         switch (loadedCharacter.world) {
             case thato:
-                if (loadedCharacter.foe > blackfire) {
-                    puts("You've beaten the final boss BlackFire!!\nThanks adventurer for clearing the land!\n");
-                    return 2;
-                }
+                switch (loadedCharacter.foe++) {
+                    case blackfire:
+                        puts("You've beaten the final boss BlackFire!!\nThanks adventurer for clearing the land!\n");
+                        return 2;
+                    break;
 
-                if (loadedCharacter.foe == ironjaw) {
-                    puts("You've finally succedeed in killing IronJaw!\nNow let's move on to Shadowthorn\n");
-                }
+                    case ironjaw:
+                        puts("You've finally succedeed in killing IronJaw!\nNow let's move on to Shadowthorn\n");
+                    break;
 
-                if (loadedCharacter.foe == shadowthorn) {
-                    puts("Impressive! You're still alive even after meeting Shadowthorn!\nI believe you are ready to fight the final boss\n");
+                    case shadowthorn:
+                        puts("Impressive! You're still alive even after meeting Shadowthorn!\nI believe you are ready to fight the final boss\n");
+                    break;
+
+                    default:
+                    break;
                 }
             break;
 
             case chanda:
-                if (loadedCharacter.foe > milly) {
-                    printf("You've beaten the final boss!\nThanks adventurer for clearing the land!\n\n");
-                    return 2;
-                }
+                switch (loadedCharacter.foe++) {
+                    case milly:
+                        printf("You've beaten the final boss!\nThanks adventurer for clearing the land!\n\n");
+                        return 2;
+                    break;
                 
-                if (loadedCharacter.foe == virgy) {
-                    puts("You've finally succedeed in killing Virgy the Faithful!\nNow let's move on to Emily the Vampire\n");
-                }
+                    case virgy:
+                        puts("You've finally succedeed in killing Virgy the Faithful!\nNow let's move on to Emily the Vampire\n");
+                    break;
 
-                if (loadedCharacter.foe == emily) {
-                    puts("Impressive! You're still alive even after meeting Emily!\nI believe you are ready to fight the final boss\n");
+                    case emily:
+                        puts("Impressive! You're still alive even after meeting Emily!\nI believe you are ready to fight the final boss\n");
+                    break;
+                    
+                    default:
+                    break;
                 }
             break;
 
