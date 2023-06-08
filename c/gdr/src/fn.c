@@ -111,7 +111,6 @@ void load_data (Player *const character, const char *const filename) {
     strcat(path, filename);
     strcat(path, ".txt");
 
-    int value;
     FILE *file = fopen(path, "r");
  
     // Error handling
@@ -195,8 +194,10 @@ void create_character (Player *const character) {
 
         printf("Choose your character's class:\n\n");
         printf("0. %s\n1. %s\n2. %s\n3. %s\n\n> ", classes[0], classes[1], classes[2], classes[3]);
-
-        scanf("%d", &character->character_class);
+        
+        do {
+            scanf("%d", &character->character_class);
+        } while (character->character_class < 0 || character->character_class > 3);
 
         switch (character->character_class) {
 
@@ -270,7 +271,6 @@ void load_foe(Player *const currentFoe, const char *const filename) {
 
     // Load the foe data from the file into a struct
     char name[PATH_BUF] = "assets/foes/";
-    char tmp[BUF];
     if (currentFoe->world) {
         strcat(name, "chanda/");
     } else {
@@ -281,7 +281,6 @@ void load_foe(Player *const currentFoe, const char *const filename) {
     strcat(name, ".txt");
 
     FILE *file = fopen(name, "r");
-    int value;
 
     // Error Handling
     if (file == NULL) {
@@ -460,7 +459,7 @@ void drop_item(Player *const user, Player *const used_on, const int *const turn)
         
             case void_crystal:
                 printf("%s life points were swapped with %s!!\n", user->name, used_on->name);
-                int mod = used_on->hp;
+                mod = used_on->hp;
                 used_on->hp = user->hp;
                 user->hp = used_on->hp;
             break;
