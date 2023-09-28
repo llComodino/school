@@ -18,6 +18,7 @@
 #define CLIENT_ARGUMENTS 6
 #define ORDER_ARGUMENTS 2
 
+// Client informations
 typedef struct {
     char *name;
     char *surname;
@@ -27,6 +28,7 @@ typedef struct {
     int order_id;
 } Client;
 
+// Order informations
 typedef struct {
     int order_id;
     char *address;
@@ -39,16 +41,22 @@ void free_pointers (Client *const, Order *const);
 
 int main (void) {
     
+    // Assign memory to a pointer to struct, turning it to a vector
     Client *clients = malloc(ORDERS * sizeof(Client));
 
+    // Assign memory to a pointer to struct, turning it to a vector
     Order *orders = malloc(ORDERS * sizeof(Order));
 
+    // Takes client informations from files
     initialize_clients(clients);
 
+    // Assigns and order_id to every order
     assign_orders(clients, orders);
 
+    // Sends the appropriate order to the matching person
     send_orders(clients, orders);
 
+    // Frees the allocated memory
     free_pointers(clients, orders);
 
     return 0;
@@ -72,12 +80,14 @@ void initialize_clients (Client *const client) {
             puts("Error opening file");
         }
 
+        // Allocate memory to the strings, allowing them to be assigned
         client[i].name = malloc(sizeof(char) * BUFFER);
         client[i].surname = malloc(sizeof(char) * BUFFER);
         client[i].address = malloc(sizeof(char) * BUFFER);
         client[i].phone = malloc(sizeof(char) * BUFFER);
         client[i].mail_address = malloc(sizeof(char) * BUFFER);
 
+        // Assigning the client informations from the respective file
         fscanf(file, "%s", client[i].name);
         fscanf(file, "%s", client[i].surname);
         fscanf(file, "%s", client[i].address);
@@ -100,12 +110,15 @@ void assign_orders (Client *const clients, Order *const orders) {
         srand(time(NULL));
         int i;
 
+        // Searching for unassigned orders
         do {
             i = rand() % 5;
         } while (orders[i].order_id != 0);
 
+        // Assign the order id of a client
         orders[i].order_id = clients[j].order_id;
         
+        // Allocating memory the the string and assigning the client address
         orders[i].address = malloc(sizeof(char) * BUFFER);
         strcpy(orders[i].address, clients[j].address);
     }
@@ -119,10 +132,13 @@ void send_orders (Client *const clients, Order *const orders) {
 
     size_t j;
     for (size_t i = 0; i < ORDERS; i++) {
+        
+        // Search for a matching order
         do {
             j = rand() % 5;
         } while (orders[j].order_id != clients[i].order_id);
 
+        // Verify the address is correct
         if (strcmp(orders[j].address, clients[i].address) == 0) {
 
             printf("\nSendind order: %d to %s %s at %s\nSending an email at: %s\nSending an sms at: %s\n\n", orders[j].order_id, clients[i].surname, clients[i].name, clients[i].address, clients[i].mail_address, clients[i].phone);
@@ -135,6 +151,7 @@ void send_orders (Client *const clients, Order *const orders) {
 
 void free_pointers (Client *const client, Order *const order) {
     
+    // Free all the allocated memory
     for (size_t i = 0; i < ORDERS; i++) {
         free(client[i].name);
         free(client[i].surname);
