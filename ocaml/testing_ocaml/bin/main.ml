@@ -1,29 +1,110 @@
-let add x y = x + y
+Printf.printf "Welcome to my blackjack game!\n";
 
-let subtract x y = x - y
+(*
+ * This function takes a list of cards and returns the total value of the cards
+ * in the list.
+ *)
+let rec total_value (cards : card list) : int =
+  match cards with
+  | [] -> 0
+  | h::t -> h.value + total_value t;
 
-let multiply x y = x * y
+(* 
+ * This function takes a list of cards and returns the total value of the cards
+ * in the list. It treats aces as 1.
+ *)
+let rec total_value_ace (cards : card list) : int =
+  match cards with
+  | [] -> 0
+  | h::t -> if h.rank = "A" then 1 + total_value_ace t else h.value + total_value_ace t;
 
-let divide x y =
-  if y = 0 then
-    "Division by zero is not allowed!"
-  else
-    string_of_float (float_of_int x /. float_of_int y)
+(* 
+ * This function takes a list of cards and returns the total value of the cards
+ * in the list. It treats aces as 11.
+ *)
 
-let calculator () =
-  Printf.printf "Simple Calculator\n";
-  Printf.printf "-----------------\n";
-  Printf.printf "Enter the first number: ";
-  let num1 = read_int () in
-  Printf.printf "Enter the operation (+, -, *, /): ";
-  let operator = read_line () in
-  Printf.printf "Enter the second number: ";
-  let num2 = read_int () in
-  match operator with
-  | "+" -> Printf.printf "Result: %d\n" (add num1 num2)
-  | "-" -> Printf.printf "Result: %d\n" (subtract num1 num2)
-  | "*" -> Printf.printf "Result: %d\n" (multiply num1 num2)
-  | "/" -> Printf.printf "Result: %s\n" (divide num1 num2)
-  | _ -> Printf.printf "Invalid operator\n"
+let rec total_value_ace11 (cards : card list) : int =
+  match cards with
+  | [] -> 0
+  | h::t -> if h.rank = "A" then 11 + total_value_ace11 t else h.value + total_value_ace11 t;
 
-let _ = calculator ()
+(* 
+ * This function takes a list of cards and returns the total value of the cards
+ * in the list. It treats aces as 1 if the total value of the cards is over 21.
+ *)
+let rec total_value_ace1 (cards : card list) : int =
+  match cards with
+  | [] -> 0
+  | h::t -> if h.rank = "A" && total_value_ace t > 10 then 1 + total_value_ace1 t else h.value + total_value_ace1 t;
+
+(* 
+ * This function takes a list of cards and returns the total value of the cards
+ * in the list. It treats aces as 11 if the total value of the cards is over 21.
+ *)
+
+let rec total_value_ace111 (cards : card list) : int =
+  match cards with
+  | [] -> 0
+  | h::t -> if h.rank = "A" && total_value_ace t > 10 then 11 + total_value_ace111 t else h.value + total_value_ace111 t;
+
+(* 
+ * This function initialized a deck of cards
+ *)
+let rec init_deck (cards : card list) : card list =
+  match cards with
+  | [] -> []
+  | h::t -> h::init_deck t;
+
+(* This function shuffles a deck of cards *)
+let rec shuffle (cards : card list) : card list =
+  match cards with
+  | [] -> []
+  | h::t -> let rand = Random.int (List.length cards) in
+            let rec get_card (cards : card list) (rand : int) : card =
+              match cards with
+              | [] -> failwith "Error"
+              | h::t -> if rand = 0 then h else get_card t (rand - 1)
+            in
+            let card = get_card cards rand in
+            card::shuffle (List.filter (fun x -> x <> card) cards);
+
+(* This function deals a card from the deck to the player *)
+
+let rec deal (cards : card list) (player : card list) : card list * card list =
+  match cards with
+  | [] -> failwith "Error"
+  | h::t -> (t, h::player);
+
+(* This function deals two cards to the player and two cards to the dealer *)
+let rec deal2 (cards : card list) (player : card list) (dealer : card list) : card list * card list * card list =
+  match cards with
+  | [] -> failwith "Error"
+  | h::t -> let (cards, player) = deal cards player in
+            let (cards, dealer) = deal cards dealer in
+            let (cards, player) = deal cards player in
+            let (cards, dealer) = deal cards dealer in
+            (cards, player, dealer);
+
+(* This function prints the cards in the player's hand *)
+let rec print_player (player : card list) : unit =
+  match player with
+  | [] -> ()
+  | h::t -> Printf.printf "%s of %s\n" h.rank h.suit;
+            print_player t;
+
+(* This function prints the cards in the dealer's hand *)
+let rec print_dealer (dealer : card list) : unit =
+  match dealer with
+  | [] -> ()
+  | h::t -> Printf.printf "%s of %s\n" h.rank h.suit;
+            print_dealer t;
+
+(* This function prints the cards in the dealer's hand except for the first card *)
+let rec print_dealer2 (dealer : card list) : unit =
+  match dealer with
+  | [] -> ()
+  | h::t -> if h = List.hd dealer then Printf.printf "Hidden\n" else Printf.printf "%s of %s\n" h.rank h.suit;
+            print_dealer2 t;
+
+(* This function evaluates who wins the hand *)
+let rec evaluate (player : card list) (dealer : card list) : unit =
