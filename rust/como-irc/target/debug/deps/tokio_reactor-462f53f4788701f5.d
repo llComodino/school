@@ -1,0 +1,9 @@
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/deps/tokio_reactor-462f53f4788701f5.rmeta: /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/lib.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/background.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/poll_evented.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/registration.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/sharded_rwlock.rs
+
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/deps/tokio_reactor-462f53f4788701f5.d: /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/lib.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/background.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/poll_evented.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/registration.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/sharded_rwlock.rs
+
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/lib.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/background.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/poll_evented.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/registration.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-reactor-0.1.12/src/sharded_rwlock.rs:

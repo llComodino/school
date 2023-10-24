@@ -1,0 +1,15 @@
+[package]
+name = "como-irc"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+failure = "0.1"
+futures = "0.1"
+irc = { git = "https://github.com/aatxe/irc", branch = "0.14", features = ["ctcp", "toml"] }
+termion = "1.4"
+tokio-core = "0.1"
+unicode-segmentation = "0.1"
+unicode-width = "0.1"

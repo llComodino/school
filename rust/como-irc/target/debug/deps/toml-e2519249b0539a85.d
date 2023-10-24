@@ -1,0 +1,12 @@
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/deps/toml-e2519249b0539a85.rmeta: /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/lib.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/value.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/datetime.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/ser.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/de.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/tokens.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/macros.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/spanned.rs
+
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/deps/toml-e2519249b0539a85.d: /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/lib.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/value.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/datetime.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/ser.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/de.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/tokens.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/macros.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/spanned.rs
+
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/lib.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/value.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/datetime.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/ser.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/de.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/tokens.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/macros.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/toml-0.4.10/src/spanned.rs:

@@ -1,0 +1,1 @@
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/como-irc: /home/comodino/code/comodino-lab/rust/como-irc/src/channel.rs /home/comodino/code/comodino-lab/rust/como-irc/src/client.rs /home/comodino/code/comodino-lab/rust/como-irc/src/main.rs /home/comodino/code/comodino-lab/rust/como-irc/src/message.rs /home/comodino/code/comodino-lab/rust/como-irc/src/server.rs

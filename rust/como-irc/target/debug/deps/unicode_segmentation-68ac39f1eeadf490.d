@@ -1,0 +1,10 @@
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/deps/unicode_segmentation-68ac39f1eeadf490.rmeta: /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/lib.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/grapheme.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/tables.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/word.rs
+
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/deps/libunicode_segmentation-68ac39f1eeadf490.rlib: /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/lib.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/grapheme.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/tables.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/word.rs
+
+/home/comodino/code/comodino-lab/rust/como-irc/target/debug/deps/unicode_segmentation-68ac39f1eeadf490.d: /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/lib.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/grapheme.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/tables.rs /home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/word.rs
+
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/lib.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/grapheme.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/tables.rs:
+/home/comodino/.cargo/registry/src/index.crates.io-6f17d22bba15001f/unicode-segmentation-0.1.3/src/word.rs:

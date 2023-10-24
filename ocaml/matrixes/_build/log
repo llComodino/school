@@ -1,0 +1,5 @@
+# dune init proj matrixes
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Workspace root: /home/comodino/code/comodino-lab/ocaml/matrixes
+# Auto-detected concurrency: 12
