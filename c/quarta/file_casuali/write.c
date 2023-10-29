@@ -33,14 +33,7 @@ int main (void) {
 
 void write_to_file (FILE *file, ClientData *const client) {
  
-    client->name = malloc(NAME_BUFFER * sizeof(char));
-    client->surname = malloc(NAME_BUFFER * sizeof(char));
-    client->name = "John";
-    client->surname = "Doe";
-    client->balance = 0.0;
-    
     for (size_t i = 0; i < RECORDS; i++) {
-        client->ID = i;
         fwrite(client, sizeof(ClientData), 1, file);
     }
 
