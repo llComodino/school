@@ -68,6 +68,7 @@ fn main () {
         }
     }
 
+
     // Find line with most corresponding digits to vec1
     let mut max = 0;
     let mut max_line = 0;
@@ -80,7 +81,10 @@ fn main () {
             
             if c.to_digit(10).unwrap() == vec1[j] {
                 count += 1;
+            } else {
+                break;
             }
+            println!("{} {}", line, count);
         }
 
         if count > max {
@@ -110,7 +114,10 @@ fn main () {
             
             if c.to_digit(10).unwrap() == vec2[j] {
                 count += 1;
+            } else {
+                break;
             }
+            println!("{} {}", line, count);
         }
 
         if count > max {
@@ -128,5 +135,8 @@ fn main () {
         line2_dec += c.to_digit(10).unwrap() * 2_u32.pow(11 - i as u32);
     }
 
+    println!("vec1: {:?}", vec1);
+    println!("vec2: {:?}", vec2);
+    
     println!("Consupion: {}", line1_dec * line2_dec);
 }

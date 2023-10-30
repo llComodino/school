@@ -13,6 +13,7 @@ impl<T: Deref> OptionDeref<T> for Option<T> {
 }
 
 fn compare(x: i32, y: i32) -> bool {
+
     if x < y {
         return true;
     }
@@ -21,6 +22,7 @@ fn compare(x: i32, y: i32) -> bool {
 }
 
 fn main() {
+    
     let mut file = File::open("input.txt").unwrap();
 
     let mut contents = String::new();
@@ -36,23 +38,28 @@ fn main() {
 
     let mut i = 0;
     for line in str_contents.lines() {
+        
         i += 1;
 
         let line = line.parse::<i32>().unwrap();
 
         if i < 3 {
+
             match i % 3 {
                 1 => {
                     a += line;
                     b += line;
-                }
+                },
 
                 2 => a += line,
 
                 _ => println!("Error"),
             }
+        
         } else {
+        
             match i % 3 {
+                
                 0 => {
                     a += line;
                     b += line;
@@ -67,7 +74,7 @@ fn main() {
                     } else {
                         c += line;
                     }
-                }
+                },
 
                 1 => {
                     b += line;
@@ -79,7 +86,7 @@ fn main() {
 
                     a = 0;
                     a += line;
-                }
+                },
 
                 2 => {
                     a += line;
@@ -91,7 +98,7 @@ fn main() {
 
                     b = 0;
                     b += line;
-                }
+                },
 
                 _ => println!("Error"),
             }
