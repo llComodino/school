@@ -5,23 +5,26 @@
 
 double bike_emission (void);
 double car_emission (void);
-double wharehouse_emission (void);
+double warehouse_emission (void);
 
 int main (void) {
 
-    double (*fnptr [FUN])(void) = {bike_emission, car_emission, wharehouse_emission};
+    double (*fnptr[FUN])(void) = {bike_emission, car_emission, warehouse_emission};
 
     while (true) {
      
         int choice;
-        printf("1. Bike\n2. Car\n3. Wharehouse\n4. Exit\n");
-        scanf("%d", &choice);
+        printf("1. Bike\n2. Car\n3. Warehouse\n4. Exit\n");
+        
+        do {
+            scanf("%d", &choice);
+        } while (choice < 1 || choice > 4);
         
         if (choice == 4) {
             break;
         }
         
-        printf("Emission: %.2lf km\n\n\n", fnptr[choice - 1]());
+        printf("Emission: %.2f km\n\n\n", fnptr[choice - 1]());
     }
 
     return 0;
@@ -55,7 +58,7 @@ double car_emission (void) {
     return km * g;
 }
 
-double wharehouse_emission (void) {
+double warehouse_emission (void) {
  
     // Per calcolare le emissioni di CO2
     // di un magazzino si moltiplica il 

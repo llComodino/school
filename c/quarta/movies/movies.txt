@@ -1,0 +1,50 @@
+1
+Pulp Fiction
+2
+1994
+0
+2
+From Dusk Till Dawn
+4
+1996
+0
+3
+Kill Bill: Vol. 1 
+0
+2003
+0
+4
+Kill Bill: Vol. 2 
+0
+2004
+0
+5
+Inglourious Basterds
+1 
+2009
+0
+6
+Django Unchained
+8
+2012
+0
+7
+The Hateful Eight
+8
+2015
+0
+8
+Once Upon a Time in Hollywood
+2 
+2019
+0
+9
+Sin City
+3
+2005
+0
+10
+Reservoir Dogs
+7
+1992
+0
