@@ -140,26 +140,14 @@ void chooseMovie(Friend *friend, Movie *movies) {
 
 void mostVoted(Movie *movies) {
 
-    FILE *file = fopen("movies.dat", "rb+");
-    fseek(file, (movies->id - 1) * sizeof(Movie), SEEK_SET);
-    fwrite(movies, sizeof(Movie), 1, file);
-    fclose(file);
-
-    printf("\n\nMost voted movie: %s\n\n", movies[0].title);
-    /*
-    int votes = 0;
-
+    int most_voted = 0;
     for (size_t i = 0; i < MOVIES; i++) {
-        if (movies[i].votes > votes) {
-            votes = movies[i].votes;
+        if (movies[i].votes > most_voted) {
+            most_voted = i;
         }
     }
 
-    for (size_t i = 0; i < MOVIES; i++) {
-        if (movies[i].votes == votes) {
-            printf("%s - %s - %d\n", movies[i].title, genres[movies[i].GENRE], movies[i].year);
-        }
-    }
-    */
+    printf("\n\nMost voted movie: %s\n\n", movies[most_voted].title);
+ 
     return;
 }
