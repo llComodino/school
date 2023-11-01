@@ -184,7 +184,7 @@ void print_months (void) {
 unsigned int get_day (Month month, const int *const bisestile) {
 
     unsigned int day;
-    switch (month) {
+    switch (month - 1) {
         case NOV:
         case APR:
         case JUN:
