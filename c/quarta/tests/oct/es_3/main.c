@@ -24,18 +24,18 @@ typedef enum {
 } Month;
 
 const char *months[MONTHS] = {
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
 };
 
 typedef enum {
@@ -79,10 +79,10 @@ int main(void) {
 
     HealthProfile patient;
     create_profile(&patient);
-
     print_profile(&patient);
 
     save_profile(&patient);
+
     print_saved_profiles();
 
     getc(stdin);
@@ -90,8 +90,10 @@ int main(void) {
     unsigned int age = CUR_YEAR - patient.date_of_birth.year;
 
     printf("%8s%6u\n%8s%6u\n", "Age:", age, "Max BPM:", max_bpm(&age));
-    printf("\nNormal BPM range\n%8s%u\n%8s%u\n\n", "Start:", min_bpm(max_bpm(&age)), "End:", max_nor_bpm(max_bpm(&age)));
-
+    printf("\nNormal BPM range\n%8s%u\n%8s%u\n\n",
+            "Start:", min_bpm(max_bpm(&age)),
+            "End:", max_nor_bpm(max_bpm(&age))
+    );
 
     double bmi_val = bmi(&patient.weight, &patient.height);
 
@@ -117,7 +119,7 @@ void create_profile (HealthProfile *const patient) {
     puts("\n");
 
     int bisestile;
-    unsigned int month, day, year;
+    unsigned int month;
     puts("Insert your month of birth:");
     print_months();
     printf("> ");
@@ -136,6 +138,8 @@ void create_profile (HealthProfile *const patient) {
     } while ( patient->date_of_birth.year < MIN_YEAR || patient->date_of_birth.year > CUR_YEAR);
 
     patient->date_of_birth.year % 4 == 0 ? (bisestile = 1) : (bisestile = 0);
+
+    printf("%d\n", bisestile);
 
     patient->date_of_birth.day = get_day (patient->date_of_birth.month, &bisestile);
 
@@ -157,7 +161,6 @@ void create_profile (HealthProfile *const patient) {
         scanf("%lf", &patient->height);
     } while (patient->height < 0);
 
-    unsigned int weight;
     printf("Insert your weight [kg] > ");
 
     do {
@@ -168,16 +171,21 @@ void create_profile (HealthProfile *const patient) {
 }
 
 void print_profile (HealthProfile *const profile) {
-    printf("%s %s\n%s\n%u of %s, %u\n%.2lf m\n%.2lf kg\n\n", profile->surname, profile->name,
-           sexs[profile->sex - 1], profile->date_of_birth.day, months[profile->date_of_birth.month - 1],
-           profile->date_of_birth.year, profile->height, profile->weight);
+ 
+    printf("%s %s\n%s\n%u of %s, %u\n%.2f m\n%.2f kg\n\n",
+            profile->surname, profile->name,
+            sexs[profile->sex - 1],
+            profile->date_of_birth.day, months[profile->date_of_birth.month - 1], profile->date_of_birth.year,
+            profile->height,
+            profile->weight
+    );
 
     return;
 }
 
 void print_months (void) {
     for (size_t i = 0; i < MONTHS; i++) {
-        printf("%llu. %10s\n", i + 1, months[i]);
+        printf("%lu. %10s\n", i + 1, months[i]);
     }
 }
 
@@ -190,7 +198,7 @@ unsigned int get_day (Month month, const int *const bisestile) {
         case JUN:
         case SEP:
             for (size_t i = 0; i < 30; i++) {
-                printf("%4llu", i + 1);
+                printf("%4lu", i + 1);
 
                 if (!(i % 10)) {
                     puts("");
@@ -212,7 +220,7 @@ unsigned int get_day (Month month, const int *const bisestile) {
         case OCT:
         case DEC:
             for (size_t i = 0; i < 31; i++) {
-                printf("%4llu", i + 1);
+                printf("%4lu", i + 1);
 
                 if (!(i % 10)) {
                     puts("");
@@ -227,9 +235,9 @@ unsigned int get_day (Month month, const int *const bisestile) {
             break;
 
         case FEB:
-            if (bisestile) {
+            if (*bisestile) {
                 for (size_t i = 0; i < 29; i++) {
-                    printf("%4llu", i + 1);
+                    printf("%4lu", i + 1);
 
                     if (!(i % 10)) {
                         puts("");
@@ -242,8 +250,9 @@ unsigned int get_day (Month month, const int *const bisestile) {
                 } while (day < 1 || day > 29);
 
             } else {
+
                 for (size_t i = 0; i < 28; i++) {
-                    printf("%4llu", i + 1);
+                    printf("%4lu", i + 1);
 
                     if (!(i % 10)) {
                         puts("");
