@@ -131,6 +131,8 @@ void add_product (Warehouse *warehouse) {
 
 void remove_product (Warehouse *warehouse) {
     
+    void shift_ID(Warehouse *warehouse, unsigned int index);
+    
     int ID = 0;
     
     printf("Insert product ID: ");
@@ -144,12 +146,22 @@ void remove_product (Warehouse *warehouse) {
                 warehouse->products[j] = warehouse->products[j + 1];
             }
             
+            shift_ID(warehouse, i);
             warehouse->size--;
             return;
         }
     }
 
     printf("Product not found!\n");
+
+    return;
+}
+
+void shift_ID (Warehouse *warehouse, unsigned int index) {
+    
+    for (int i = index; i < warehouse->size; i++) {
+        warehouse->products[i].ID--;
+    }
 
     return;
 }
