@@ -32,14 +32,6 @@ int main (void) {
         customer->order[i] = add_order(warehouse);
     }
 
-    // Update the warehouse 
-    for (size_t i = 0; i < customer->order_count; i++) {
-        warehouse->products[customer->order[i].product->ID - 1].quantity -= customer->order[i].quantity;
-    }
-
-    // Save the warehouse 
-    save_warehouse(warehouse);
-
     puts("\n");
     
     print_customer_orders(customer);
@@ -91,18 +83,22 @@ Order add_order (Warehouse *warehouse) {
 
     print_products(warehouse);
 
-    printf("Enter the product ID: ");
     do {
+        printf("Enter the product ID: ");
         scanf("%d", &order.product->ID);
-    } while (order.product->ID < 1 || order.product->ID > warehouse->size);
+    } while (order.product->ID < 1 || order.product->ID > warehouse->size || warehouse->products[order.product->ID - 1].quantity == 0);
 
-    printf("Enter the quantity: ");
     do {
+        printf("Enter the quantity: ");
         scanf("%d", &order.quantity);
     } while (order.quantity < 1 || order.quantity > warehouse->products[order.product->ID - 1].quantity);
 
     order.product->price = warehouse->products[order.product->ID - 1].price;
     strcpy(order.product->name, warehouse->products[order.product->ID - 1].name);
+
+    update_warehouse(warehouse, &order);
+    save_warehouse(warehouse);
+    load_warehouse(warehouse);
 
     return order;
 }
@@ -131,6 +127,13 @@ void free_customer(Customer *customer) {
 
     free(customer->order);
     free(customer);
+
+    return;
+}
+
+void update_warehouse(Warehouse *warehouse, Order *order) {
+
+    warehouse->products[order->product->ID - 1].quantity -= order->quantity;
 
     return;
 }

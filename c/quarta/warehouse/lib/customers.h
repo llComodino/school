@@ -24,5 +24,6 @@ Order add_order (Warehouse *warehouse);
 void print_customer (Customer *customer);
 void print_customer_orders (Customer *customer);
 void free_customer (Customer *customer);
+void update_warehouse (Warehouse *warehouse, Order *order);
 
 #endif
