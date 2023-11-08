@@ -48,17 +48,12 @@ void reverse(struct String *str) {
     }
 }
 
-void replace(struct String *original, struct String *new_str) {
-    if (original->size != new_str->size) {
-        puts("Strings must be the same size");
-        return;
-    }
-
-    free(original->str);
-    original->str = malloc(sizeof(char) * new_str->size);
+void replace(struct String *original, char old_char, char new_char) {
 
     for (int i = 0; i < original->size; i++) {
-        original->str[i] = new_str->str[i];
+        if (original->str[i] == old_char) {
+            original->str[i] = new_char;
+        }
     }
 }
 
@@ -75,16 +70,19 @@ void concatenate(struct String *original, struct String *addition) {
     }
 
     original->size += addition_length;
+    original->str[original->size] = '\0';
 }
 
 void clear_string(struct String *str) {
     free(str->str);
-    str->str = malloc(sizeof(char) * str->size);
+    str->str = malloc(sizeof(char) * DEFAULT_SIZE);
     str->size = 0;
 }
 
 unsigned int length(struct String *str) {
-    return str->size;
+    unsigned int i;
+    for (i = 0; str->str[i] != '\0'; i++);
+    return i;
 }
 
 void from_int(struct String *str, unsigned int n) {
@@ -125,30 +123,42 @@ void from_double(struct String *str, double d) {
     }
 
     unsigned int int_part = (unsigned int) d;
-    unsigned int decimal_part = (unsigned int) ((d - int_part) * 10000000000000000);
-
     from_int(str, int_part);
 
-    int i = str->length(str);
+    long long unsigned int decimal_part = (long long unsigned int) ((d - int_part) * 1000000000000000);
+    
+    struct String *append = new_string();
+    
+    append->str = malloc(sizeof(char));
+    append->str[0] = '.';
+    concatenate(str, append);
+    
+    append->clear_string(append);
+    append->from_int(append, decimal_part);
+    concatenate(str, append);
 
-    str->str[i++] = '.';
-
-    while (decimal_part > 0) {
-        str->str[i++] = decimal_part % 10 + '0';
-        decimal_part /= 10;
-    }
-
-    str->str[i] = '\0';
-    str->size = i;
+    str->size = length(str);
 }
 
 double to_double(struct String *str) {
     double d = 0;
-    for (int i = 0; i < str->size; i++) {
+    int i = 0;
+    while (str->str[i] != '.') {
         d *= 10;
         d += str->str[i] - '0';
+        i++;
     }
-    return d;
+
+    i++;
+    double decimal_part = 0;
+    double decimal_multiplier = 0.1;
+    while (str->str[i] != '\0') {
+        decimal_part += (str->str[i] - '0') * decimal_multiplier;
+        decimal_multiplier /= 10;
+        i++;
+    }
+
+    return d + decimal_part;
 }
 
 void delete_string(struct String *s ) {

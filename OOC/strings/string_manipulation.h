@@ -3,6 +3,7 @@
 
 #define MAX_STRING_SIZE 512
 #define MIN_STRING_SIZE 1
+#define DEFAULT_SIZE 32
 
 struct String {
     char *str;
@@ -11,7 +12,7 @@ struct String {
     void (*to_lower)(struct String *str);
     void (*to_upper)(struct String *str);
     void (*reverse)(struct String *str);
-    void (*replace)(struct String *original, struct String *new_str);
+    void (*replace)(struct String *original, char old_char, char new_char);
     void (*concatenate)(struct String *original, struct String *addition);
     void (*clear_string)(struct String *str);
     unsigned int (*length)(struct String *str);
@@ -27,7 +28,7 @@ void get_string(struct String *str, unsigned int size);
 void to_lower(struct String *str);
 void to_upper(struct String *str);
 void reverse(struct String *str);
-void replace(struct String *original, struct String *new_str);
+void replace(struct String *original, char old_char, char new_char);
 void concatenate(struct String *original, struct String *addition);
 void clear_string(struct String *str);
 unsigned int length(struct String *str);
