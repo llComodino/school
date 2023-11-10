@@ -7,10 +7,11 @@ fn main() {
     
     let mut stream = TcpStream::connect("127.0.0.1:8080").unwrap();
     
-    println!("Connected to the server!");
+    println!("Connected to the server!\n");
     println!("1. Login");
     println!("2. Register");
     println!("3. Exit");
+    print!("> ");
 
     let mut input = String::new();
     std::io::stdin().read_line(&mut input).unwrap();
