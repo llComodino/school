@@ -141,9 +141,11 @@ void send_orders (Client *const clients, Order *const orders) {
         // Verify the address is correct
         if (strcmp(orders[j].address, clients[i].address) == 0) {
 
-            printf("\nSendind order: %d to %s %s at %s\nSending an email at: %s\nSending an sms at: %s\n\n", orders[j].order_id, clients[i].surname, clients[i].name, clients[i].address, clients[i].mail_address, clients[i].phone);
+            printf("\nSendind order: %d to %s %s at %s\nSending an email at: %s\nSending an sms at: %s\n\n",
+                    orders[j].order_id, clients[i].surname, clients[i].name, clients[i].address, clients[i].mail_address, clients[i].phone);
         } else {
-            printf("\nError, addresses not matching:\n\nOrder id: %d\nReceiver id: %d\n\nOrder address: %s\nReceiver address: %s\n\n", orders[j].order_id, clients[i].order_id, orders[j].address, clients[i].address);
+            printf("\nError, addresses not matching:\n\nOrder id: %d\nReceiver id: %d\n\nOrder address: %s\nReceiver address: %s\n\n",
+                    orders[j].order_id, clients[i].order_id, orders[j].address, clients[i].address);
         }     
     }
     return;
@@ -158,8 +160,7 @@ void free_pointers (Client *const client, Order *const order) {
         free(client[i].address);
         free(client[i].phone);
         free(client[i].mail_address);
-
-        free(order[i].address);
+        free( order[i].address);
     }
 
     free(client);
