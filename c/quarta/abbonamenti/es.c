@@ -35,5 +35,6 @@ int main (void) {
 	
 	fclose(file);
 	free(name);
-	return 0;
+	
+    return 0;
 }
