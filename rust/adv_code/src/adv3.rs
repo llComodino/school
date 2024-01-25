@@ -64,5 +64,5 @@ fn main () {
         vec2_dec += vec2[x] * 2_usize.pow(11 - x as u32);
     }
 
-    println!("Consupion: {}", vec1_dec * vec2_dec);
+    println!("Consumption: {}", vec1_dec * vec2_dec);
 }
