@@ -112,6 +112,12 @@ void init(Queue *queue) {
 }
 
 void new_customer(Queue *queue, char *name) {
+    
+    if (queue->size == MAX) {
+        printf("Coda piena\n");
+        return;
+    }
+
     Node *new = NULL;
 
     if ( (new = (Node *)malloc(sizeof(Node))) == NULL ) {
