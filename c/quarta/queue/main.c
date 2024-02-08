@@ -7,7 +7,6 @@
  * - Servire un cliente
  * - Rimuovere un cliente dalla coda (dopo averlo servito)
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -53,7 +52,6 @@ int main (void) {
 
         switch (choice) {
             case 1:
-                
                 char *name = NULL;
 
                 if ( (name = (char *) malloc(sizeof(char) * BUF)) == NULL ) {
@@ -162,6 +160,7 @@ int length(Queue *queue) {
 }
 
 void print(Queue *queue) {
+    
     if (queue->size == 0) {
         printf("Nessun cliente in coda\n");
         return;
