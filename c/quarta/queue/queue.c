@@ -32,9 +32,9 @@ int main (void) {
 
     queue->print(queue->head);
 
-    for (size_t i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
 
-        printf("Pushed %d\n", queue->push(queue, (int *)(&i)));
+        printf("Pushed %d\n", queue->push(queue, &i));
 
     }
 
@@ -44,10 +44,16 @@ int main (void) {
 
     puts("\n");
 
-    for (size_t i = 0; i < 10; i++) {
+    int popped_val = 0;
+    for (size_t i = 0; i < 11; i++) {
 
-        printf("Popped %s\n", queue->pop(queue));
-
+        popped_val = queue->pop(queue);
+        if (popped_val != -1) {
+         
+            printf("Popped: %d\n", popped_val);
+        
+        }
+    
     }
 
     queue->print(queue->head);
@@ -138,10 +144,8 @@ int pop(Queue *const queue) {
     } else {
 
         val = queue->head->val;
-    
         queue->head = queue->head->next;
-        free(queue->head->prev);
-
+    
     }
 
     return val;
