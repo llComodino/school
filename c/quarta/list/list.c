@@ -1,3 +1,4 @@
+#include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +24,7 @@ bool _is_empty(List *list);
 void init(List **list);
 void print_list(Node *head);
 void append_node(List *list);
+void idx_insertion(List *list, size_t idx);
 
 int main (void) {
 
@@ -35,6 +37,10 @@ int main (void) {
     }
 
     _is_empty(list) ? puts("List is empty!") : print_list(list->head);
+
+    idx_insertion(list, 3);
+
+    print_list(list->head);
 
     while (list->head != NULL) {
         list->tail = list->head->next;
@@ -117,6 +123,46 @@ void append_node(List *list) {
 
         list->tail->prev = list->tail->prev->next;
     }
+
+    list->size++;
  
+    return;
+}
+
+void idx_insertion(List *list, size_t idx) {
+
+    Node *tmp = list->head;
+
+    if ( _is_empty(list) ) {
+
+        puts("List is empty");
+
+    } else {
+
+        if ( idx > list->size ) {
+
+            printf("List is %d elements long\nYou tried to insert at idx %lu\n", list->size, idx);
+
+        } else {
+
+            for (size_t i = 0; i < idx; i++, (tmp = tmp->next) );
+
+            printf("Tmp: %s\n", tmp->name);
+
+            Node *new = (Node *) malloc(sizeof(Node));
+
+            new->name = (char *) malloc(sizeof(char) * BUFFER);
+            printf("Enter name: ");
+            fgets(new->name, BUFFER, stdin);
+            *(new->name + strlen(new->name) - 1) = '\0';
+
+            new->prev = tmp;
+            new->next = tmp->next;
+            tmp->next = new;
+
+        }
+    
+    }
+
     return;
 }
