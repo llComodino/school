@@ -1,0 +1,63 @@
+body {
+    background-color: lightgrey;
+    font-family: 'Firamono';
+    scroll-behavior: smooth;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+}
+
+nav .refs {
+    float: right;
+}
+
+nav .nav-button {
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 3rem;
+}
+
+nav button h2 {
+    padding: 1px;
+    margin: 0%;
+}
+
+nav hr {
+    margin-right: 60%;
+    height: 1px;
+    background-color: purple;
+}
+
+.grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.box {
+    margin: 1rem;
+    height: 50rem;
+    border: 2px solid black;
+    border-radius: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.main {
+    margin-top: 2rem;
+}
+
+.main h1 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.main hr {
+    margin-top: 0px;
+    padding-top: 0px;
+    height: 0.2rem;
+    background-color: red;
+    margin-right: 90%;
+}
