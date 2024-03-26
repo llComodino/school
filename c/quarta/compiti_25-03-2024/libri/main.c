@@ -35,7 +35,7 @@ typedef struct List {
 
 void create_node(Node **node, char *name, char *surname, unsigned int num);
 void initialize_list(List **list);
-void load_books(Book **books);
+void load_books(Book *books);
 void print_books(Book *book);
 void insert_end(List *list, char *name, char *surname, unsigned int num);
 void insert_index(List *list, int idx, char *name, char *surname, unsigned int num);
@@ -48,7 +48,7 @@ int main(void) {
     List *list;
     Book *books;
     initialize_list(&list);
-    load_books(&books);
+    load_books(books);
 
     unsigned int choice = 0;
 
@@ -106,6 +106,14 @@ int main(void) {
                 break;
 
             case 3:
+
+                if (list->head == NULL) {
+
+                    puts("List is empty");
+                    break;
+
+                }
+
                 unsigned int student = BASE_NUM;
                 puts("Who would like to read a book? ");
                 print_list(list->head);
@@ -140,6 +148,7 @@ void create_node(Node** node, char* name, char* surname, unsigned int num) {
     (*node)->name = strdup(name);
     (*node)->surname = strdup(surname);
     (*node)->num = num;
+    (*node)->books = NULL;
     (*node)->prev = NULL;
     (*node)->next = NULL;
 
@@ -156,7 +165,7 @@ void initialize_list(List** list) {
     return;
 }
 
-void load_books(Book **books) {
+void load_books(Book *books) {
 
     FILE *file = NULL;
     
@@ -167,17 +176,17 @@ void load_books(Book **books) {
 
     char *buffer = (char *) malloc(sizeof(char) * BUFFER);
     
-    if ( (*books) == NULL && fgets(buffer, BUFFER, file) != NULL) {
+    if ( books == NULL && fgets(buffer, BUFFER, file) != NULL) {
 
-        if ( ( (*books) = (Book *) malloc(sizeof(Book))) == NULL) {
+        if ( ( books = (Book *) malloc(sizeof(Book))) == NULL) {
             fprintf(stderr, "Not enough mem (load_books)");
         }
 
-        (*books)->title = strtok(buffer, ";");
-        (*books)->author = strtok(NULL, ";");
-        (*books)->status = (int)*(strtok(NULL, ";")) - 48;
+        books->title = strtok(buffer, ";");
+        books->author = strtok(NULL, ";");
+        books->status = (int)*(strtok(NULL, ";")) - 48;
 
-        (*books)->next = NULL;
+        books->next = NULL;
 
     } else {
 
@@ -186,19 +195,19 @@ void load_books(Book **books) {
 
     }
 
-    Book **tmp = books;
+    Book *tmp = books;
     while ( fgets(buffer, BUFFER, file) != NULL ) {
 
-        if ( ( (*tmp)->next = (Book *) malloc(sizeof(Book))) == NULL) {
+        if ( ( tmp->next = (Book *) malloc(sizeof(Book))) == NULL) {
             fprintf(stderr, "Not enough mem (load_books)");
         }
 
-        (*tmp)->next->title = strtok(buffer, ";");
-        (*tmp)->next->author = strtok(NULL, ";");
-        (*tmp)->next->status = (int)*(strtok(NULL, ";")) - 48;
-        (*tmp)->next->next = NULL;
+        tmp->next->title = strtok(buffer, ";");
+        tmp->next->author = strtok(NULL, ";");
+        tmp->next->status = (int)*(strtok(NULL, ";")) - 48;
+        tmp->next->next = NULL;
         
-        (*tmp) = (*tmp)->next;
+        tmp = tmp->next;
 
     }
 
@@ -328,16 +337,12 @@ void book(List *list, Book *books, unsigned int number) {
     void select_book(Book *books, Book *book);
     Node *tmp = list->head;
 
-    if (list->head == NULL) {
-        puts("List is empty");
-        return;
-    }
-
     find_student(tmp, &number);
 
     if (tmp == NULL) {
 
         printf("Student %d does not exist!\n\n", number);
+        return;
 
     }
 
@@ -364,7 +369,6 @@ void book(List *list, Book *books, unsigned int number) {
 
     }
 
-
     select_book(books, book);
 
     return;
@@ -373,20 +377,17 @@ void book(List *list, Book *books, unsigned int number) {
 void find_student(Node *node, unsigned int *number) {
     
     if ( node->num == *number ) {
-
         return;
-
     }
 
     if ( node == NULL) {
-
         return;
-
     }
 
     node = node->next;
     find_student(node, number);
 
+    return;
 }
 
 void select_book(Book *books, Book *book) {
@@ -414,6 +415,7 @@ void select_book(Book *books, Book *book) {
             book->title = strdup(books->title);
             book->author = strdup(books->author);
             book->status = NAVIABLE;
+            books->status = NAVIABLE;
             
         }
 
