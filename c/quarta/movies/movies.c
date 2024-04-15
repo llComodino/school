@@ -1,7 +1,7 @@
 /*
  * dovete organizzare una serata tra amici
- * tutti i partecipanti (in totale 10) potranno proporre tre film diversi in una lista da 10
- * Ogni film sara immagazzinato in una struct con i seguenti dati:
+ * tutti i partecipanti (in totale 10) potranno proporre tre film diversi in una
+ * lista da 10 Ogni film sara immagazzinato in una struct con i seguenti dati:
  * - Titolo del film
  * - Genere
  * - Anno di uscita
@@ -23,40 +23,31 @@
 #define GENRES 9
 
 typedef enum {
-    ACTION,
-    ADVENTURE,
-    COMEDY,
-    DRAMA,
-    HORROR,
-    MUSICAL,
-    SCIFI,
-    THRILLER,
-    WESTERN
+  ACTION,
+  ADVENTURE,
+  COMEDY,
+  DRAMA,
+  HORROR,
+  MUSICAL,
+  SCIFI,
+  THRILLER,
+  WESTERN
 } Genres;
 
-char *genres[GENRES] = {
-    "Action",
-    "Adventure",
-    "Comedy",
-    "Drama",
-    "Horror",
-    "Musical",
-    "Sci-Fi",
-    "Thriller",
-    "Western"
-};
+char *genres[GENRES] = {"Action",  "Adventure", "Comedy",   "Drama",  "Horror",
+                        "Musical", "Sci-Fi",    "Thriller", "Western"};
 
 typedef struct {
-    int id;
-    char title[BUFFER];
-    Genres GENRE;
-    int year;
-    int votes;
+  int id;
+  char title[BUFFER];
+  Genres GENRE;
+  int year;
+  int votes;
 } Movie;
 
 typedef struct {
-    char name[BUFFER];
-    Movie movies[CHOICES];
+  char name[BUFFER];
+  Movie movies[CHOICES];
 } Friend;
 
 void insertMovie(Movie *movie, FILE *movies_file);
@@ -66,88 +57,90 @@ void mostVoted(Movie *movies);
 
 int main(void) {
 
-    Movie movies[MOVIES] = {{0, "", 0, 0, 0}};
-    Friend friends[FRIENDS] = {{"", movies[0]}};
-    
-    FILE *movies_file = NULL;
+  Movie movies[MOVIES] = {{0, "", 0, 0, 0}};
+  Friend friends[FRIENDS] = {{"", movies[0]}};
 
-    if ((movies_file = fopen("movies.dat", "rb")) == NULL) {
-        printf("Error opening file\n");
-        return 1;
+  FILE *movies_file = NULL;
+
+  if ((movies_file = fopen("movies.dat", "rb")) == NULL) {
+    printf("Error opening file\n");
+    return 1;
+  }
+
+  for (size_t i = 0; i < MOVIES; i++) {
+    insertMovie(&movies[i], movies_file);
+  }
+
+  fclose(movies_file);
+
+  printf("Movies list:\n");
+  printMovies(&movies[0]);
+
+  for (size_t i = 0; i < FRIENDS; i++) {
+
+    printf("Insert friend %lu name: ", i + 1);
+    scanf("%s", friends[i].name);
+
+    for (size_t j = 0; j < CHOICES; j++) {
+      printMovies(&movies[0]);
+      printf("Choose movie n. %lu: ", j + 1);
+      chooseMovie(&friends[i], &movies[0]);
     }
+  }
 
-    for (size_t i = 0; i < MOVIES; i++) {
-        insertMovie(&movies[i], movies_file);
-    }
-    
-    fclose(movies_file);
+  mostVoted(movies);
 
-    printf("Movies list:\n");
-    printMovies(&movies[0]);
-
-    for (size_t i = 0; i < FRIENDS; i++) {
-        
-        printf("Insert friend %lu name: ", i + 1);
-        scanf("%s", friends[i].name);
-
-        for (size_t j = 0; j < CHOICES; j++) {
-            printMovies(&movies[0]);
-            printf("Choose movie n. %lu: ", j + 1);
-            chooseMovie(&friends[i], &movies[0]);
-        }
-    }
-
-    mostVoted(movies);
-
-    return 0;
+  return 0;
 }
 
 void insertMovie(Movie *movie, FILE *movies_file) {
 
-    Movie movie_tmp = {0, "", 0, 0, 0};
-    fread(&movie_tmp, sizeof(Movie), 1, movies_file);
+  Movie movie_tmp = {0, "", 0, 0, 0};
+  fread(&movie_tmp, sizeof(Movie), 1, movies_file);
 
-    movie->id = movie_tmp.id;
-    movie->GENRE = movie_tmp.GENRE;
-    movie->year = movie_tmp.year;
-    movie->votes = movie_tmp.votes;
-    strcpy(movie->title, movie_tmp.title);
+  movie->id = movie_tmp.id;
+  movie->GENRE = movie_tmp.GENRE;
+  movie->year = movie_tmp.year;
+  movie->votes = movie_tmp.votes;
+  strcpy(movie->title, movie_tmp.title);
 
-    return;
+  return;
 }
 
 void printMovies(Movie *movie) {
-    
-    for (size_t i = 0; i < MOVIES; i++) {
-        printf("%10s %d\n%10s %s\n%10s %s\n%10s %d\n\n", "ID:", movie[i].id, "Title:", movie[i].title, "Genre:", genres[movie[i].GENRE], "Year:", movie[i].year);
-    }
-    return;
+
+  for (size_t i = 0; i < MOVIES; i++) {
+    printf("%10s %d\n%10s %s\n%10s %s\n%10s %d\n\n", "ID:", movie[i].id,
+           "Title:", movie[i].title, "Genre:", genres[movie[i].GENRE],
+           "Year:", movie[i].year);
+  }
+  return;
 }
 
 void chooseMovie(Friend *friend, Movie *movies) {
-    
-    int choice = 0;
-    
-    do {
-        scanf("%d", &choice);
-    } while (choice < 1 || choice > MOVIES);
 
-    friend->movies[choice - 1] = movies[choice - 1];
-    movies[choice - 1].votes++;
+  int choice = 0;
 
-    return;
+  do {
+    scanf("%d", &choice);
+  } while (choice < 1 || choice > MOVIES);
+
+  friend->movies[choice - 1] = movies[choice - 1];
+  movies[choice - 1].votes++;
+
+  return;
 }
 
 void mostVoted(Movie *movies) {
 
-    int most_voted = 0;
-    for (size_t i = 0; i < MOVIES; i++) {
-        if (movies[i].votes > most_voted) {
-            most_voted = i;
-        }
+  int most_voted = 0;
+  for (size_t i = 0; i < MOVIES; i++) {
+    if (movies[i].votes > most_voted) {
+      most_voted = i;
     }
+  }
 
-    printf("\n\nMost voted movie: %s\n\n", movies[most_voted].title);
- 
-    return;
+  printf("\n\nMost voted movie: %s\n\n", movies[most_voted].title);
+
+  return;
 }

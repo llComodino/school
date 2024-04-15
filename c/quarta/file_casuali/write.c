@@ -5,37 +5,37 @@
 #define RECORDS 100
 
 typedef struct {
-    unsigned int ID;
-    char *name;
-    char *surname;
-    double balance;
+  unsigned int ID;
+  char *name;
+  char *surname;
+  double balance;
 } ClientData;
 
-void write_to_file (FILE *file, ClientData *const client);
+void write_to_file(FILE *file, ClientData *const client);
 
-int main (void) {
+int main(void) {
 
-    FILE *file;
+  FILE *file;
 
-    if ((file = fopen("accounts.dat", "wb")) == NULL) {
-        printf("Error opening file.\n");
-        exit(1);
-    }
+  if ((file = fopen("accounts.dat", "wb")) == NULL) {
+    printf("Error opening file.\n");
+    exit(1);
+  }
 
-    // Initializes file with blank records
-    ClientData client = {0, "", "", 0.0};
-    write_to_file(file, &client);
+  // Initializes file with blank records
+  ClientData client = {0, "", "", 0.0};
+  write_to_file(file, &client);
 
-    fclose(file);
+  fclose(file);
 
-    return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
 
-void write_to_file (FILE *file, ClientData *const client) {
- 
-    for (size_t i = 0; i < RECORDS; i++) {
-        fwrite(client, sizeof(ClientData), 1, file);
-    }
+void write_to_file(FILE *file, ClientData *const client) {
 
-    return;
+  for (size_t i = 0; i < RECORDS; i++) {
+    fwrite(client, sizeof(ClientData), 1, file);
+  }
+
+  return;
 }

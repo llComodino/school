@@ -5,41 +5,36 @@
 
 #define SIZE 5
 
-int main(void)
-{
-    int v[SIZE], c = SIZE;
-    for (int i = 0; i < SIZE; i++)
-    {
-        do {
-            printf("> ");
-            scanf("%d", &v[i]);
-        } while (v[i] > 100 || v[i] < 10);
+int main(void) {
+  int v[SIZE], c = SIZE;
+  for (int i = 0; i < SIZE; i++) {
+    do {
+      printf("> ");
+      scanf("%d", &v[i]);
+    } while (v[i] > 100 || v[i] < 10);
 
-        for (int k = 0; k < i; k++)
-        {
-            if (k == i)
-                continue;
-        
-            if (v[i] == v[k])
-            {
-                v[k] = 0;
-                c--;
-                continue;
-            }
-        }
+    for (int k = 0; k < i; k++) {
+      if (k == i)
+        continue;
+
+      if (v[i] == v[k]) {
+        v[k] = 0;
+        c--;
+        continue;
+      }
+    }
+  }
+
+  int vf[c];
+  for (int j = 0, k = 0; j < SIZE; j++)
+    if (v[j] != 0) {
+      vf[k] = v[j];
+      k++;
     }
 
-    int vf[c];
-    for (int j = 0, k = 0; j < SIZE; j++)
-        if (v[j] != 0)
-        {
-            vf[k] = v[j];
-            k++;
-        }
+  printf("Numeri singoli: ");
+  for (int i = 0; i < c; i++)
+    printf("%4d", vf[i]);
 
-    printf("Numeri singoli: ");
-    for (int i = 0; i < c; i++)
-        printf("%4d", vf[i]);
-
-    return 0;
+  return 0;
 }

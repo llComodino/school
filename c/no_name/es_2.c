@@ -2,22 +2,18 @@
 
 void sumPtrs(int, int, int *sum);
 
-int main(void)
-{
-    int x, y, sum;
-    
-    puts("Insert x value: ");
-    scanf("%d", &x);
+int main(void) {
+  int x, y, sum;
 
-    puts("Insert y value: ");
-    scanf("%d", &y);
+  puts("Insert x value: ");
+  scanf("%d", &x);
 
-    sumPtrs(x, y, &sum);
+  puts("Insert y value: ");
+  scanf("%d", &y);
 
-    printf("\n%d + %d = %d\n\n", x, y, sum);
+  sumPtrs(x, y, &sum);
+
+  printf("\n%d + %d = %d\n\n", x, y, sum);
 }
 
-void sumPtrs(int x, int y, int *sum)
-{
-    *sum = x + y;
-}
+void sumPtrs(int x, int y, int *sum) { *sum = x + y; }
