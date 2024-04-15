@@ -96,3 +96,4 @@ bool average(const double *const pn1, const double *const pn2) {
   printf("Average is: %.2lf", avg);
   return fmod(avg, 2);
 }
+

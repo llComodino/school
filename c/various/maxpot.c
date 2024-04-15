@@ -18,3 +18,4 @@ int main(void) {
   printf("Il numero reale maggiore che rispetta la condizione X^X <= Y: %d", x);
   return 0;
 }
+

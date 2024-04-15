@@ -126,3 +126,4 @@ void print_tot(const double prd_prices[PRD], const char prd_names[][BUF]) {
   }
   printf("%47s\n\n", "***********************************************");
 }
+

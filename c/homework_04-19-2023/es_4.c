@@ -40,3 +40,4 @@ size_t strlength(const char *const pstr) {
 
   return i;
 }
+

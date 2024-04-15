@@ -81,3 +81,4 @@ void swap(int *const pe1, int *const pe2) {
 bool ascend(const int *const pe1, const int *const pe2) { return *pe1 > *pe2; }
 
 bool descend(const int *const pe1, const int *const pe2) { return *pe1 < *pe2; }
+

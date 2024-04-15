@@ -92,3 +92,4 @@ void printTable(const double sales[][ELEMENTS]) {
     tot = 0;
   }
 }
+

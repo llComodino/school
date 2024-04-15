@@ -214,3 +214,4 @@ void merge_list(SortedList *dest, SortedList *src_1, SortedList *src_2) {
 
   return;
 }
+

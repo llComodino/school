@@ -129,3 +129,4 @@ int main() {
   // questa calcolo la frequenza giornaliera di vendite per il singolo prodotto
   // un una settimana
 }
+

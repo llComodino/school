@@ -31,3 +31,4 @@ double avg(int i, ...) {
 
   return (avg / i);
 }
+

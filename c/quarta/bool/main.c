@@ -25,3 +25,4 @@ void successful_termination(void) {
   puts("\n\nProgram terminated succesfully");
   return;
 }
+

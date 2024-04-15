@@ -188,3 +188,4 @@ void print_dealt(const int *const dealt) {
   puts("");
   return;
 }
+

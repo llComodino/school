@@ -39,3 +39,4 @@ void write_to_file(FILE *file, ClientData *const client) {
 
   return;
 }
+

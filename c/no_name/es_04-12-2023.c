@@ -28,3 +28,4 @@ void cp2(char *s1, char *s2) {
   for (; (*s1 = *s2) != '\0'; ++s1, ++s2)
     ;
 }
+

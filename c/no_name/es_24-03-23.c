@@ -51,3 +51,4 @@ void div(double x, double y, double *ptot) {
   *ptot = x / y;
   return;
 }
+

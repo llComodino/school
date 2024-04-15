@@ -79,3 +79,4 @@ double warehouse_emission(void) {
 
   return e * g;
 }
+

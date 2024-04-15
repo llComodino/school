@@ -57,3 +57,4 @@ void print_contacts(const Contacts *contact) {
   }
   return;
 }
+

@@ -477,3 +477,4 @@ void drop_item(Player *const user, Player *const used_on,
   }
   return;
 }
+

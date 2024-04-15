@@ -41,3 +41,4 @@ int main(void) {
     fwrite(&movie, sizeof(Movie), 1, fp);
   }
 }
+

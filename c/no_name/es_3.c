@@ -20,3 +20,4 @@ int main(void) {
 double average(double *px, double *py, double *pz) {
   return (*px + *py + *pz) / 3;
 }
+

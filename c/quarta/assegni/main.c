@@ -342,3 +342,4 @@ bool deposit_check(FILE *const check_file, FILE *const accounts_file,
 
   // Search the id file for a name, extract id and compare
 }
+

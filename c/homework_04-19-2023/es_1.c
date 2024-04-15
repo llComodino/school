@@ -60,3 +60,4 @@ int dif(const int *const pn1, const int *const pn2) { return *pn1 - *pn2; }
 int mol(const int *const pn1, const int *const pn2) { return (*pn1) * (*pn2); }
 
 int div(const int *const pn1, const int *const pn2) { return *pn1 / *pn2; }
+

@@ -46,3 +46,4 @@ double todouble(char *number) {
 
   return num;
 }
+

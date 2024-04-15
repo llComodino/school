@@ -29,3 +29,4 @@ int flip(void) {
   int f = rand() % 2;
   return f;
 }
+

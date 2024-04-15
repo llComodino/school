@@ -125,3 +125,4 @@ void print_ticket(char seat[]) {
   printf("| %26s |\n", seat);
   printf("==============================\n");
 }
+

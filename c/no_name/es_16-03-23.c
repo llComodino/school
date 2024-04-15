@@ -67,3 +67,4 @@ void print_total(int products[][SIZE], char names[][BUFFER]) {
     }
   }
 }
+
