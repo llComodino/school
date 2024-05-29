@@ -1,0 +1,5 @@
+The Devils;Fyodor Dostoevsky;100100;xx-xx-xxxx
+The Brothers Kamarzov;Fyodor Dostoevsky;100101;xx-xx-xxxx
+The Idiot;Fyodor Dostoevsky;100102;xx-xx-xxxx
+Crime and Punishment;Fyodor Dostoevsky;100103;xx-xx-xxxx
+Notes from The Underground;Fyodor Dostoevsky;100104;xx-xx-xxxx
