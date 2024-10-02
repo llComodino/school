@@ -144,4 +144,3 @@ void mostVoted(Movie *movies) {
 
   return;
 }
-

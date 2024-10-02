@@ -22,35 +22,35 @@ enum Type {melee, ranged, magic, magic_melee, magic_ranged};
 enum Foes {ironjaw, shadowthorn, blackfire, virgy, emily, milly};
 
 typedef struct {
-    enum Weapon id;
-    enum Type type;
-    enum Modifier mod;
-    char name[BUFFER];
-    int dmg;
+  enum Weapon id;
+  enum Type type;
+  enum Modifier mod;
+  char name[BUFFER];
+  int dmg;
 } Weapons;
 
 typedef struct {
-    int poison_start;
-    int burn_start;
+  int poison_start;
+  int burn_start;
 } Player_Modifiers;
 
 typedef struct {
-    enum playerStatus status;
-    enum Type type;
-    enum Weapon weapon_id;
-    enum World world;
-    enum Foes foe;
-    char name[BUFFER];
-    int level;
-    int character_class;
-    int hp;
-    Weapons weapon;
-    Player_Modifiers modifiers;
+  enum playerStatus status;
+  enum Type type;
+  enum Weapon weapon_id;
+  enum World world;
+  enum Foes foe;
+  char name[BUFFER];
+  int level;
+  int character_class;
+  int hp;
+  Weapons weapon;
+  Player_Modifiers modifiers;
 } Player;
 
 typedef struct {
-    enum Item type;
-    char name[BUFFER];
+  enum Item type;
+  char name[BUFFER];
 } Items;
 
 void save_data (Player * character, const char *const filename);

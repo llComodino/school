@@ -21,37 +21,34 @@ typedef struct {
   double lft_avg;
   double rgt_avg;
 
-  void (*in_order)(Leaf *leaf);
-  void (*pre_order)(Leaf *leaf);
+  void (*in_order)  (Leaf *leaf);
+  void (*pre_order) (Leaf *leaf);
   void (*post_order)(Leaf *leaf);
 
 } Tree;
 
-void _init_tree(Tree **tree);
+Tree* _init_tree(void);
 void in_order(Leaf *leaf);
 void pre_order(Leaf *leaf);
 void post_order(Leaf *leaf);
 void add_leaf(Tree *tree, const unsigned int *const val);
 
 int main(void) {
-
   Tree *tree = NULL;
-
-  _init_tree(&tree);
+  
+  if ( (tree = _init_tree()) == NULL ) {
+    fprintf(stderr, "Not enough mem for tree");
+    exit(2);
+  }
 
   unsigned int val = 0;
 
   for (size_t i = 10; i < 20; i++) {
-
     if (i % 2) {
-
       val = 20 - i;
-
     } else {
-
       val = i;
     }
-
     add_leaf(tree, &val);
   }
 
@@ -69,27 +66,27 @@ int main(void) {
   return 0;
 }
 
-void _init_tree(Tree **tree) {
-
-  if (((*tree) = (Tree *)malloc(sizeof(Tree))) == NULL) {
+Tree* _init_tree(void) {
+  Tree *tree = NULL;
+  if ((tree = (Tree *)malloc(sizeof(Tree))) == NULL) {
     fprintf(stderr, "Not enough mem");
   }
 
-  (*tree)->root = NULL;
+  tree->root = NULL;
 
-  (*tree)->leaves_count = 0;
-  (*tree)->sum = 0;
-  (*tree)->avg = 0;
-  (*tree)->lft_sum = 0;
-  (*tree)->rgt_sum = 0;
-  (*tree)->lft_avg = 0;
-  (*tree)->rgt_avg = 0;
+  tree->leaves_count = 0;
+  tree->sum = 0;
+  tree->avg = 0;
+  tree->lft_sum = 0;
+  tree->rgt_sum = 0;
+  tree->lft_avg = 0;
+  tree->rgt_avg = 0;
 
-  (*tree)->in_order = in_order;
-  (*tree)->pre_order = pre_order;
-  (*tree)->post_order = post_order;
+  tree->in_order = in_order;
+  tree->pre_order = pre_order;
+  tree->post_order = post_order;
 
-  return;
+  return tree;
 }
 
 void in_order(Leaf *leaf) {

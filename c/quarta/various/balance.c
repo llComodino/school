@@ -10,6 +10,7 @@ int main(void) {
   if ((file = fopen("file_sequenziale.txt", "r")) == NULL) {
 
     puts("File not found!");
+    exit(2);
 
   } else {
 

@@ -23,7 +23,6 @@ double avg(int i, ...) {
   va_start(arg_list, i);
 
   for (size_t idx = 0; (int)(idx) < i; idx++) {
-
     avg += va_arg(arg_list, double);
   }
 

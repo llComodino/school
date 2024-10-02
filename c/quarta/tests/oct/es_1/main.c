@@ -4,8 +4,7 @@
 double bmi(const double *const weight, const double *const height);
 void bmi_value(const double *const bmi);
 
-int main() {
-
+int main(void) {
   double weight;
   printf("Insert weight [kg]: ");
 
@@ -33,7 +32,6 @@ double bmi(const double *const weight, const double *const height) {
 }
 
 void bmi_value(const double *const bmi) {
-
   if (*bmi < 18.5f) {
     printf("Sottopeso\n");
   } else if (*bmi >= 18.5f && *bmi <= 24.9f) {

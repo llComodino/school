@@ -195,7 +195,6 @@ void update_player(Entity *player) {
       break;
   }
 
-
   return;
 }
 

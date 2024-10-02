@@ -18,7 +18,6 @@ void add_number(struct Node *root);
 void print_tree(struct Node *root);
 
 int main(void) {
-
   struct Node *root = NULL;
 
   if ((root = (struct Node *)malloc(sizeof(struct Node))) == NULL) {
@@ -47,7 +46,6 @@ int main(void) {
 }
 
 unsigned int select_option(void) {
-
   unsigned int option = 0;
 
   printf("Select an option:\n");
@@ -61,7 +59,6 @@ unsigned int select_option(void) {
 }
 
 void add_number(struct Node *root) {
-
   int number = 0;
 
   printf("Enter a number to add to the tree: ");
@@ -99,11 +96,9 @@ void add_number(struct Node *root) {
 }
 
 void print_tree(struct Node *root) {
-
   if (root != NULL) {
     print_tree(root->left);
     printf("%d\n", root->data);
     print_tree(root->right);
   }
 }
-
