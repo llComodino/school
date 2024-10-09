@@ -1,0 +1,31 @@
+{
+  "title": {
+    "position": "center",
+    "value": "Curriculum Vitae"
+  },
+  "data": {
+    "name": "Mario",
+    "surname": "Rossi",
+    "residence": "Via Milano 40 - 10100 Roma",
+    "mail": "mario.rossi@email.it",
+    "tel": "0111 22 33 44",
+    "cell": "111 222 3344",
+    "bdate": "01/02/2001",
+    "nationality": "Italian",
+    "legal_status": "spoused"
+  },
+  "experiences": [
+    {
+      "company": "Some Computer Inc.",
+      "city": "Como"
+    },
+    {
+      "company": "Helpdesk",
+      "city": "Biandrate"
+    },
+    {
+      "company": "Other Generic Inc.",
+      "city": "Rome"
+    }
+  ]
+}

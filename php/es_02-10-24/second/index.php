@@ -53,58 +53,58 @@ $subjects["gpa"] /= count($subjects);
   </head>
   <body>
     <?php
-    echo "
-      <table>
-        <thead>
-        <tr>
-    ";
-    foreach ($subjects as $subject => $values) {
-      echo "<th><span>$subject</span></th>";
-    }
-    echo "</tr>";
-
-    echo "</thead>";
-    echo "<tbody>";
-
-    foreach ($subjects as $subject) {
-      echo "<tr>";
-      foreach ($subject["grades"] as $grade) {
-        if ($grade < 6) {
-          echo "<td style='color: red;'>$grade</td>";
-        } else {
-          echo "<td>$grade</td>";
+      echo "
+          <table>
+            <thead>
+            <tr>
+        ";
+        foreach ($subjects as $subject => $values) {
+          echo "<th><span>$subject</span></th>";
         }
-      }
-      echo "</tr>";
-    }
+        echo "</tr>";
 
-    echo "<tr>";
+        echo "</thead>";
+        echo "<tbody>";
 
-    foreach ($subjects as $key => $subject) {
-      if ($key == "gpa") {
-        printf("<td><span>%.2f</span></td>", $subjects["gpa"]);
-      } else {
-        if ($subject["failed"]) {
-          echo "<td style='color: red;'>Fail</td>";
-        } else {
-          echo "<td style='color: green;'>Pass</td>";
+        foreach ($subjects as $subject) {
+          echo "<tr>";
+          foreach ($subject["grades"] as $grade) {
+            if ($grade < 6) {
+              echo "<td style='color: red;'>$grade</td>";
+            } else {
+              echo "<td>$grade</td>";
+            }
+          }
+          echo "</tr>";
         }
-      }
-    }
 
-    echo "</tr>";
-    echo "</tbody>";
-    echo "</table>";
+        echo "<tr>";
 
-    echo "Overall: ";
+        foreach ($subjects as $key => $subject) {
+          if ($key == "gpa") {
+            printf("<td><span>%.2f</span></td>", $subjects["gpa"]);
+          } else {
+            if ($subject["failed"]) {
+              echo "<td style='color: red;'>Fail</td>";
+            } else {
+              echo "<td style='color: green;'>Pass</td>";
+            }
+          }
+        }
 
-    if ($count >= 3) {
-      echo "<span style='color: red'>Failed</span>";
-    } else if ($count < 3 && $count > 1) {
-      echo "<span style='color: orange'>Pending</span>";
-    } else {
-      echo "<span style='color: green'>Passed</span>";
-    }
+        echo "</tr>";
+        echo "</tbody>";
+        echo "</table>";
+
+        echo "Overall: ";
+
+        if ($count >= 3) {
+          echo "<span style='color: red'>Failed</span>";
+        } else if ($count < 3 && $count > 1) {
+          echo "<span style='color: orange'>Pending</span>";
+        } else {
+          echo "<span style='color: green'>Passed</span>";
+        }
 
     ?>
   </body>
