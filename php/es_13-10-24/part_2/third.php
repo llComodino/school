@@ -7,8 +7,6 @@
   <?php
     $date = "2020/12/31";
 
-    // Print day month year
-
     $date_array = explode("/", $date);
     echo "Day: " . $date_array[2] . "<br>";
     echo "Month: " . $date_array[1] . "<br>";
