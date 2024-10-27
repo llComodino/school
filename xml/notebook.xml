@@ -1,0 +1,32 @@
+<!-- 
+  Crea il file DTD e XML che descrivano le caratteristiche di un pc notebook
+      > marca
+      > modello
+      > prezzo
+      > schermo
+      > cpu
+      > ram
+      > HDD/SSD
+      > ecc…). 
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE notebook [
+<!ELEMENT notebook (marca, modello, prezzo, schermo, cpu, ram, HDD)>
+<!ELEMENT marca (#PCDATA)>
+<!ELEMENT modello (#PCDATA)>
+<!ELEMENT prezzo (#PCDATA)>
+<!ELEMENT schermo (#PCDATA)>
+<!ELEMENT cpu (#PCDATA)>
+<!ELEMENT ram (#PCDATA)>
+<!ELEMENT HDD (#PCDATA)>
+]>
+
+<notebook>
+  <marca>Asus</marca>
+  <modello>ROG Zephyrus G14 2024</modello>
+  <prezzo>2200</prezzo>
+  <schermo>14"</schermo>
+  <cpu>AMD Ryzen 9 6900HS</cpu>
+  <ram>16GB DDR5 5600Mhz</ram>
+  <HDD>1TB SSD</HDD>
+</notebook>

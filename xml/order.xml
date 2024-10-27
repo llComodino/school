@@ -1,0 +1,45 @@
+<!-- 
+    Crea il file DTD e XML dei dati relativi ad un acquisto online.
+    Devono essere indicati: 
+    acquirente e relativa anagrafica
+    tipo di merce
+    prezzo
+    indirizzo di spedizione(residenza o domicilio)
+    modalità di pagamento
+    consegna prevista.
+-->
+
+<!DOCTYPE ordine [
+<!ELEMENT ordine (acquirente, merce, prezzo, indirizzo, pagamento, consegna)>
+<!ELEMENT acquirente (nome, cognome, indirizzo, telefono)>
+<!ELEMENT merce (#PCDATA)>
+<!ELEMENT prezzo (#PCDATA)>
+<!ELEMENT indirizzo (residenza, domicilio)>
+<!ELEMENT residenza (#PCDATA)>
+<!ELEMENT domicilio (#PCDATA)>
+<!ELEMENT pagamento (#PCDATA)>
+<!ELEMENT consegna (#PCDATA)>
+<!ELEMENT nome (#PCDATA)>
+<!ELEMENT cognome (#PCDATA)>
+<!ELEMENT telefono (#PCDATA)>
+]>
+
+<ordine>
+  <acquirente>
+      <nome>Giuseppe</nome>
+      <cognome>Verdi</cognome>
+      <indirizzo>
+        <residenza>Via Verdi, 1</residenza>
+        <domicilio>Via Rossi, 2</domicilio>
+      </indirizzo>
+      <telefono>1234567890</telefono>
+  </acquirente>
+  <merce>Smartphone</merce>
+  <prezzo>500</prezzo>
+  <indirizzo>
+      <residenza>Via Verdi, 1</residenza>
+      <domicilio>Via Rossi, 2</domicilio>
+  </indirizzo>
+  <pagamento>Carta di credito</pagamento>
+  <consegna>Entro 3 giorni</consegna>
+</ordine>
