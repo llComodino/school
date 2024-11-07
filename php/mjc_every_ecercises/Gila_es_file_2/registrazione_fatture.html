@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione fatture</title>
+</head>
+<body>
+
+    <form action="registrazione_fatture.php" method="post">
+        <center>
+            <table border="1">
+                <thead>
+                <tr><h2>Inserimento dati fattura</h2></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Numero fattura</td>
+                        <td><input type="text" name="nf" required></td>
+                    </tr>
+                    <tr>
+                        <td>Importo fattura</td>
+                        <td><input type="text" name="if" required></td>
+                    </tr>
+                    <tr>
+                        <td>Data fattura</td>
+                        <td align="center"><input type="date" name="data" required></td>
+                    </tr>
+                    <tr>
+                        <td>Codice cliente</td>
+                        <td><input type="text" name="cc" required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">%IVA <input type="radio" name="iva" value="4" required> 4<input type="radio" name="iva" value="10"> 10<input type="radio" name="iva" value="22"> 22</td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><input type="submit" value="INVIA"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </center>
+    </form>
+
+    <p align="center"><a href="menu.html"><button>TORNA AL MENU'</button></a></p>
+
+</body>
+</html>

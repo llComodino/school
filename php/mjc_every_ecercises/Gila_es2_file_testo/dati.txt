@@ -1,0 +1,3 @@
+Rosario;Cannuni;2023-11-08;Novara;CNNRSR05L04F952J;UMissinisi;Studente;photo/CNNRSR05L04F952J.jpg
+Pippo;Balbo;2023-12-05;Bolzano;PPPBBB00F00F000Z;Pip;Pensionato;photo/PPPBBB00F00F000Z.jpg
+Mario;Rossi;1995-10-30;Bolzano;MMMSSS00F00F000Z;Rosso;Dipendente;photo/MMMSSS00F00F000Z.jpg

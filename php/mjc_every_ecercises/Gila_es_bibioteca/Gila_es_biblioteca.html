@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Iscrizione biblioteca</title>
+</head>
+<body>
+    <h1 align="center">ISCRIZIONE BIBIOLETECA NOVARA</h1>
+    <form action="Cannuni_es_biblioteca.php" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Dati anagrafici</legend>
+            Cognome <input type="text" name="cognome" required><br><br>
+            Nome <input type="text" name="nome" required><br><br>
+            Data di nascita <input type="date" name="data_di_nascita" required><br><br>
+            Sesso <input type="radio" name="sesso" value="M" required>M <input type="radio" name="sesso" value="F">F
+            <br><br>
+            Indirizzo <input type="text" name="indirizzo" required>n.civ.<input type="text" name="numciv" required><br><br>
+            Paese residenza <input type="text" name="paese" required><br><br>
+            Professione <input type="radio" name="professione" value="Studente" required>Studente <input type="radio" name="professione" value="Pensionato">Pensionato <input type="radio" name="professione" value="Altro">Altro
+            <br><br>
+            Foto <input type="file" name="foto" required><br><br>
+            Carta d'indentità <input type="file" name="carta" required><br><br>
+            Mail <input type="email" name="email" required><br><br>
+        </fieldset>
+        <fieldset>
+            <legend>Password e invio/reset</legend>
+            Password <input type="password" name="password1"><br><br>
+            Conferma password <input type="password" name="password2"><br><br>
+        </fieldset>
+        <input type="submit" name="invia" value="Invia"><input type="reset" name="reset" value="Reset">
+    </form>
+</body>
+</html>

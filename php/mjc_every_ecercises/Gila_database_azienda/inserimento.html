@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserimento</title>
+</head>
+<body>
+<center>
+    <form action="inserimento.php" method="post">
+        Nome
+        <input name="nome" type="text" required><br><br>
+        Cognome
+        <input name="cognome" type="text" required><br><br>
+        Filiale
+        <select name="filiale" required>
+            <option value="Roma">Roma</option>
+            <option value="Firenze">Firenze</option>
+            <option value="Torino">Torino</option>
+            <option value="Napoli">Napoli</option>
+        </select><br><br>
+        Stipendio
+        <input name="stipendio" type="number" required><br><br>
+        Data di nascita
+        <input name="data" type="date" required><br><br>
+        Citta' di rersidenza
+        <input name="citta" type="text" required><br><br>
+        <input type="submit" value="Invia">
+        <input type="reset" value="Annulla">
+    </form>
+</center>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione utenti</title>
+</head>
+<body bgcolor="#1e90ff" style="color: aliceblue">
+    <form action="es2_file_testo_5.php" method="post" enctype="multipart/form-data">
+        <table align="center">
+            <tr>
+                <td><h1 style="color: aliceblue" align="center">Registrazione utenti</h1></td>
+            </tr>
+            <tr>
+                <td>Cognome</td>
+                <td><input type="text" name="cognome" required></td>
+            </tr>
+            <tr>
+                <td>Nome</td>
+                <td><input type="text" name="nome" required></td>
+            </tr>
+            <tr>
+                <td>Data di nascita</td>
+                <td><input type="date" name="data" required></td>
+            </tr>
+            <tr>
+                <td>Luogo di nascita</td>
+                <td><input type="text" name="luogo_di_nascita" required></td>
+            </tr>
+            <tr>
+                <td>Codice fiscale</td>
+                <td><input type="text" name="cf" required></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username" required></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="pass1" required></td>
+            </tr>
+            <tr>
+                <td>Conferma password</td>
+                <td><input type="password" name="pass2" required></td>
+            </tr>
+            <tr>
+                <td>Professione</td>
+                <td><input type="radio" name="professione" value="Studente" required>Studente<input type="radio" name="professione" value="Dipendente" required>Dipendente<input type="radio" name="professione" value="Pensionato" required>Pensionato</td>
+            </tr>
+            <tr>
+                <td>Foto tessera</td>
+                <td><input type="file" name="photo" required></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Invia dati"> <input type="reset"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
