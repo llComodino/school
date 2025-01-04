@@ -48,11 +48,10 @@ void world_info(void) {
   getchar();
 
   // wait for user to press enter so he has time to read
-  while ((z = getchar()) != '\n')
-  ;
+  while ((z = getchar()) != '\n');
 
   puts("======================================================================="
-     "==========================================================\n");
+       "==========================================================\n");
 
   file = fopen("assets/world_info/chanda_sung.txt", "r");
   while (fgets(buffer, BUF, file) != NULL) {
@@ -62,8 +61,7 @@ void world_info(void) {
   fclose(file);
 
   // wait for user to press enter so he has time to read
-  while ((z = getchar()) != '\n')
-  ;
+  while ((z = getchar()) != '\n');
 
   return;
 }
