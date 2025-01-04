@@ -1,0 +1,28 @@
+# Gradle files
+.gradle/
+build/
+
+# Gradle Wrapper
+!gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Java files
+*.class
+*.log
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+# Windows system files
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.out
+
+# JetBrains IDE files
+.idea/
+
+# File-based indexes
+*.iml
