@@ -18,7 +18,9 @@ pthread_mutex_t print_mutex = PTHREAD_MUTEX_INITIALIZER;
 void* run_timer(void* arg);
 void init_times(int* times, size_t len);
 
-int main(void) {
+int
+main(void)
+{
   int* times = (int*)malloc(sizeof(int) * TIMES);
   init_times(times, TIMES);
 
@@ -45,7 +47,9 @@ int main(void) {
   return 0;
 }
 
-void* run_timer(void* arg) {
+void*
+run_timer(void* arg)
+{
   car_timer_t* timer = (car_timer_t*)(arg);
 
   if ( timer == NULL ) {
@@ -72,6 +76,8 @@ void* run_timer(void* arg) {
   return NULL;
 }
 
-void init_times(int* times, size_t len) {
+void
+init_times(int* times, size_t len)
+{
   for (size_t i = 0; i < len; i++) *(times + i) = 1 + rand() % 16;
 }
