@@ -8,7 +8,7 @@ class Ship {
   protected float  $length;
   protected float  $width;
   protected float  $power;
-  
+
   public function __construct(string $code, string $name, string $nation, string $date, float $length, float $width, float $power) {
     $this->setCode($code);
     $this->setName($name);
@@ -18,73 +18,72 @@ class Ship {
     $this->setWidth($width);
     $this->setPower($power);
   }
-  
-  function insertIntoDatabase($conn, string $table) {
-    try {
-      $conn->exec("
-        INSERT INTO $table (code, name, nation, date, length, width, power)
-              VALUES ('$this->code', '$this->name', '$this->nation', '$this->date', '$this->length', '$this->width', '$this->power')
-      ");
-    } catch (Exception $e) {
-      echo $e->getMessage();
-      return false;
-    }
-    return true;
-  }
-  
-  function setCode(string $code) {
+
+  function setCode(string $code): void {
     $this->code = $code;
   }
-  
-  function setName(string $name) {
+
+  function setName(string $name): void {
     $this->name = $name;
   }
-  
-  function setNation(string $nation) {
+
+  function setNation(string $nation): void {
     $this->nation = $nation;
   }
-  
-  function setDate(string $date) {
+
+  function setDate(string $date): void {
     $this->date = $date;
   }
-  
-  function setLength(float $length) {
+
+  function setLength(float $length): void {
     $this->length = $length;
   }
-  
-  function setWidth(float $width) {
+
+  function setWidth(float $width): void {
     $this->width = $width;
   }
-  
-  function setPower(float $power) {
+
+  function setPower(float $power): void {
     $this->power = $power;
   }
-  
-  function getCode() {
+
+  function getCode(): string {
     return $this->code;
   }
-  
-  function getName() {
-    return $name;
+
+  function getName(): string {
+    return $this->name;
   }
-  
-  function getNation() {
-    return $nation;
+
+  function getNation(): string {
+    return $this->nation;
   }
-  
-  function getYear() {
-    return $year;
+
+  function getYear(): string {
+    return $this->year;
   }
-  
-  function getLength() {
-    return $length;
+
+  function getLength(): float {
+    return $this->length;
   }
-  
-  function getWidth() {
-    return $width;
+
+  function getWidth(): float {
+    return $this->width;
   }
-  
-  function getPower() {
-    return $power;
+
+  function getPower(): float {
+    return $this->power;
+  }
+
+  function toKeyValues(): array {
+    return [
+        "code"   => $this->code,
+        "name"   => $this->name,
+        "nation" => $this->nation,
+        "date"   => $this->date,
+        "length" => $this->length,
+        "width"  => $this->width,
+        "power"  => $this->power
+    ];
   }
 }

@@ -1,5 +1,6 @@
 <?php
 include('Ship.php');
+require_once 'store.php';
 
 $servername = "localhost";
 $username = "root";
@@ -18,13 +19,13 @@ try {
 <html>
   <head>
     <title>MySQL Usage Throuh PDO</title>
-    <meta charset="UTF-16">
+    <meta charset="UTF-8">
   </head>
   <body>
 
 <?php
 if ($conn == null) {
-  echo "Could not connect";
+  echo "No active connection to the db";
 } else {
   if (isset($_POST["submitted"])) {
     $ship = new Ship(
@@ -37,12 +38,12 @@ if ($conn == null) {
       $_POST["power"]
     );
 
-    $ship->insertIntoDatabase($conn, 'ships');
+    saveToDatabase($conn, 'ships', $ship);
 
     echo "<p>Submitted</p>";
   } else {
     echo "
-    <form action='". $_SERVER['PHP_SELF'] ."' method='post'>
+    <form action='".$_SERVER['PHP_SELF']."' method='post'>
       <legend>Ship</legend>
 
       <label for='code'>Code:</label><br>
@@ -58,21 +59,21 @@ if ($conn == null) {
       <input type='date' name='date' required>   <br>
 
       <label for='length'>Length:</label><br>
-      <input type='number' name='length' required> <br>
+      <input type='number' name='length' required step='0.1'> <br>
 
       <label for='Width'>Width:</label><br>
-      <input type='number' name='width' required>  <br>
+      <input type='number' name='width' required step='0.1'>  <br>
 
       <label for='power'>Power:</label><br>
-      <input type='number' name='power' required>  <br>
+      <input type='number' name='power' required step='0.1'>  <br>
 
       <br><br>
       <input type='submit' value='submit' name='submitted' id='submit'>
-    </form>
-    ";
+    </form>";
   }
 }
 ?>
+
     <footer>
       <a href="./index.html">Go Back</a>
     </footer>
