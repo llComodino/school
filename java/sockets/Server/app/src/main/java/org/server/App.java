@@ -14,6 +14,7 @@ public class App {
         "\"port\":" + port +
         "}"
     );
+
     public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(port)) {
             System.out.println("Listening for connections...");

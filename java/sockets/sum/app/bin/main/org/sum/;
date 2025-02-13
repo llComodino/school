@@ -1,0 +1,42 @@
+package org.sum;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class App {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try (ServerSocket server = new ServerSocket(8080)) {
+            Socket client = server.accept();
+
+
+
+            if (line.chars().anyMatch( (c) -> (c >= 'a' && c <= 'z') || (c >= 'A' || c <= 'Z'))) {
+                out.println("Invalid input, your number is not a number");
+            }
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
+
+    private static int getNumber(Socket client) {
+        PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+        out.println("Enter an integer: ");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        String line = in.readLine();
+
+        return num;
+    }
+
+	@Override
+	public String toString() {
+		return "App []";
+	}
+}
