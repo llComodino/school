@@ -19,15 +19,25 @@
 
   function getTutors() {
     global $conn;
-    $stmt = $conn->prepare("SELECT id, name FROM tutor");
+    $stmt = $conn->prepare("SELECT * FROM tutor");
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   function getCompanies() {
     global $conn;
-    $stmt = $conn->prepare("SELECT id, name FROM company");
+    $stmt = $conn->prepare("SELECT * FROM company");
     $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  function getTraineeFromName($name, $surname) {
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM trainee WHERE name = :name AND surname = :surname");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':surname', $surname);
+    $stmt->execute();
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
