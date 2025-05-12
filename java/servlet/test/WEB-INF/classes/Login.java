@@ -14,7 +14,10 @@ public class Login extends HttpServlet {
     PrintWriter out = response.getWriter();
 
     out.println("<!DOCTYPE html>");
-    out.println("<html><head><meta charset='UTF-8'><title>Risultato Login</title></head><body>");
+    out.println("<html><head>");
+    out.println("<meta charset='UTF-8'><title>Risultato Login</title>");
+    out.println("<link rel='stylesheet' type='text/css' href='css/table.css'>");
+    out.println("</head><body>");
 
     if ("admin".equals(username) && "1234".equals(psw)) {
       out.println("<h1>ACCESSO AVVENUTO CON SUCCESSO!</h1>");
