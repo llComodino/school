@@ -1,0 +1,20 @@
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: navy;
+  font-size: 2em;
+}
+
+h2 {
+  color: darkred;
+  font-size: 1.5em;
+}
+
+footer {
+  margin-top: 50px;
+  font-style: italic;
+  text-align: center;
+}
