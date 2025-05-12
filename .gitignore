@@ -1,3 +1,6 @@
-c/hashmaps
-c/tmp
+*.war
+*.jar
+*/target/*
+*/debug/*
+*eclipse*
 *~
