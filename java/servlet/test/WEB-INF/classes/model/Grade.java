@@ -1,3 +1,5 @@
+package model;
+
 public class Grade {
   private int mark;
   private String subject;

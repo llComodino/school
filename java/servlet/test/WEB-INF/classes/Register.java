@@ -1,6 +1,7 @@
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import model.*;
 
 public class Register extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)

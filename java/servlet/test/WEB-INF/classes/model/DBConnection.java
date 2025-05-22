@@ -1,3 +1,5 @@
+package model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -5,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.*;
+
+import model.*;
 
 public class DBConnection {
   private static final String DB_DRIVER = "org.mariadb.jdbc.Driver";
@@ -105,5 +109,49 @@ public class DBConnection {
       e.printStackTrace();
     }
     return null;
+  }
+
+  public boolean insertGrade(User user, String subject, int mark) {
+    String insertQuery = "INSERT INTO grade VALUES (?, ?, ?)";
+
+    PreparedStatement stmt = null;
+    try {
+      stmt = conn.prepareStatement(insertQuery);
+
+      stmt.setString(1, user.getID());
+      stmt.setInt(2, mark);
+      stmt.setString(3, subject);
+
+      if ( stmt.executeUpdate() > 0 ) {
+        System.out.println("Grade inserted succesfully");
+      } else {
+        return false;
+      }
+    } catch(SQLException sqle) {
+      System.out.println("INSERT ERROR");
+      return false;
+    } catch(Exception err) {
+      System.out.println("GENERIC ERROR");
+      return false;
+    }
+
+    return true;
+  }
+
+  public static ArrayList<Grade> getGrades(String userID) {
+    ArrayList<Grade> grades = new ArrayList<>();
+
+    try {
+      DBConnection conn = new DBConnection();
+      ResultSet rs = conn.fetchQuery("SELECT * FROM grade WHERE id_user = '" + userID + "'");
+
+      while ( rs.next() ) {
+        grades.add( new Grade( rs.getInt("mark"), rs.getString("subject") ) );
+      }
+    } catch ( SQLException e ) {
+      e.printStackTrace();
+    }
+
+    return grades;
   }
 }

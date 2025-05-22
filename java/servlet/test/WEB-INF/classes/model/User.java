@@ -1,5 +1,7 @@
+package model;
+
 import java.security.MessageDigest;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class User {
@@ -8,7 +10,7 @@ public class User {
   private String surname;
   private String username;
   private String password;
-  private List<Grade> grades;
+  private ArrayList<Grade> grades = new ArrayList<>();
 
   public User(String name, String surname, String username, String password) {
     this.id = genID();
@@ -42,11 +44,21 @@ public class User {
   public String getPassword() { return password; }
   public void setPassword(String password) { this.password = genEncryptedPassword(password); }
 
-  public List<Grade> getGrades() { return grades; }
+  public ArrayList<Grade> getGrades(boolean fetch) { 
+    if ( fetch )
+      grades = DBConnection.getGrades(id);
 
-  public void addGrade(int mark, String subject) {
-    if ( grades.size() < 10 )
-      grades.add( new Grade(mark, subject) );
+    System.out.println("Grades: " + grades);
+    return grades;
+  }
+
+  public boolean addGrade(Grade grade) {
+    if ( grades.size() < 10 ) {
+      grades.add( grade );
+      return true;
+    }
+
+    return false;
   }
 
   public double getGradeAvg() { return gradeAvg(); }

@@ -3,12 +3,16 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.ResultSet;
 
+import model.*;
+
 public class Login extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
     String username = request.getParameter("username");
     String psw = request.getParameter("psw");
+
+    System.out.println("name: " + username + "psw: " + psw);
 
     DBConnection conn = new DBConnection();
     User user = conn.getUser(username, psw);
@@ -23,21 +27,8 @@ public class Login extends HttpServlet {
     out.println("</head><body>");
 
     if ( user != null ) {
-      out.println("<h1>accesso avvenuto con successo!</h1>");
-
-      out.println("<h2>Bentornato " + user.getUsername() + "</h2>");
-
-      out.println("<h3>I tuoi voti:</h3>");
-      out.println("<table>");
-      out.println("<thead><th><span>Voto</span></th><th><span>Materia</span></th></thead>");
-      out.println("<tbody>");
-      for (Grade grade : user.getGrades()) {
-        out.println("<tr" + ( ( grade.getMark() < 6 ) ? " style=\"color: red;\">" : "style=\"color: green\">" ));
-        out.println("<td><span>" + grade.getMark() + "</span></td><td><span>" + grade.getSubject() + "</span></td>");
-        out.println("</tr>");
-      }
-      out.println("</tbody>");
-      out.println("</table>");
+      request.getSession().setAttribute("user", user);
+      response.sendRedirect("profile.jsp");
     } else {
       out.println("<h1 style=\"color: red;\">ERRORE ACCESSO</h1>");
       out.println("<a href='homepage-progetto'>Torna alla homepage</a>");

@@ -26,6 +26,15 @@
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>HandleGrade</servlet-name>
+    <servlet-class>HandleGrade</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HandleGrade</servlet-name>
+    <url-pattern>/handle_grade</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
     <welcome-file>homepage-progetto</welcome-file>
   </welcome-file-list>
