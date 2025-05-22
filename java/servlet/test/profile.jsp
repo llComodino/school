@@ -46,7 +46,7 @@
 
         <p>Media:
         <%
-          double avg = user.getAvg()
+          double avg = user.getAvg();
           if ( avg < 6f && avg >= 5f ) {
         %>
           <span style="color: orange">
