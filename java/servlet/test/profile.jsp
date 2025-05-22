@@ -41,6 +41,21 @@
                 <td><span> <%= mark %> </span></td><td><span> <%= grade.getSubject() %> </span></td>
               </tr>
           <% } %>
+          </tbody>
+        </table>
+
+        <p>Media:
+        <%
+          double avg = user.getAvg()
+          if ( avg < 6f && avg >= 5f ) {
+        %>
+          <span style="color: orange">
+        <% } else if ( avg < 5f ) { %>
+          <span style="color: red">
+        <% } else { %>
+          <span style="color: green">
+        <% } %>
+        <%= avg %></span>
         <a href="addGrade.jsp">Aggiungi Voto</a>
       </div>
       <% } %>
