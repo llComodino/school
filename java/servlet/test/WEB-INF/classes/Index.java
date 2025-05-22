@@ -2,7 +2,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class Hello extends HttpServlet {
+public class Index extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
@@ -27,10 +27,12 @@ public class Hello extends HttpServlet {
 
     out.println("<h3>Login</h3>");
     out.println("<form action='login' method='post'>");
-    out.println("Username: <input type='text' name='utente'><br>");
+    out.println("Username: <input type='text' name='username'><br>");
     out.println("Password: <input type='password' name='psw'><br>");
     out.println("<input type='submit' value='Login'>");
     out.println("</form>");
+
+    out.println("<p><span>Oppure registrati qui: <a href=\"register.jsp\">Registrazione</a></span></p>");
 
     out.println("<footer>");
     out.println("<p>Questo progetto è a scopo didattico</p>");

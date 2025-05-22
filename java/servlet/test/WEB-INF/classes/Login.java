@@ -7,8 +7,11 @@ public class Login extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
-    String username = request.getParameter("utente");
+    String username = request.getParameter("username");
     String psw = request.getParameter("psw");
+
+    DBConnection conn = new DBConnection();
+    User user = conn.getUser(username, psw);
 
     response.setContentType("text/html");
     PrintWriter out = response.getWriter();
@@ -19,47 +22,24 @@ public class Login extends HttpServlet {
     out.println("<link rel='stylesheet' type='text/css' href='css/table.css'>");
     out.println("</head><body>");
 
-    if ("admin".equals(username) && "1234".equals(psw)) {
-      out.println("<h1>ACCESSO AVVENUTO CON SUCCESSO!</h1>");
-      out.println("<h3>Utenti presenti nel database:</h3>");
+    if ( user != null ) {
+      out.println("<h1>accesso avvenuto con successo!</h1>");
 
-      try {
-        DBConnection conn = new DBConnection();
+      out.println("<h2>Bentornato " + user.getUsername() + "</h2>");
 
-        if ( conn == null ) {
-          System.out.println("Error establishing connection");
-          return;
-        }
-
-        String query = "SELECT * FROM user";
-        ResultSet users = conn.fetchByQuery(query);
-
-        if ( users.next() ) {
-          users.previous();
-          out.println("<table><thead>");
-          out.println("<th><span>ID<span></th>");
-          out.println("<th><span>Name<span></th>");
-          out.println("<th><span>Surname<span></th>");
-          out.println("<th><span>Username<span></th>");
-          out.println("<th><span>Password<span></th>");
-          out.println("</thead><tbody>");
-
-          while ( users.next() ) {
-            out.println("<tr>");
-            out.println("<td><span>" + users.getString("id") + "</span></td>");
-            out.println("<td><span>" + users.getString("name") + "</span></td>");
-            out.println("<td><span>" + users.getString("surname") + "</span></td>");
-            out.println("<td><span>" + users.getString("username") + "</span></td>");
-            out.println("<td><span>" + users.getString("password") + "</span></td>");
-            out.println("</tr>");
-          }
-          out.println("</tbody></table>");
-        }
-      } catch (Exception e) {
-        System.out.println("Exception occoured: " + e.getMessage());
+      out.println("<h3>I tuoi voti:</h3>");
+      out.println("<table>");
+      out.println("<thead><th><span>Voto</span></th><th><span>Materia</span></th></thead>");
+      out.println("<tbody>");
+      for (Grade grade : user.getGrades()) {
+        out.println("<tr" + ( ( grade.getMark() < 6 ) ? " style=\"color: red;\">" : "style=\"color: green\">" ));
+        out.println("<td><span>" + grade.getMark() + "</span></td><td><span>" + grade.getSubject() + "</span></td>");
+        out.println("</tr>");
       }
+      out.println("</tbody>");
+      out.println("</table>");
     } else {
-      out.println("<h1>ERRORE ACCESSO</h1>");
+      out.println("<h1 style=\"color: red;\">ERRORE ACCESSO</h1>");
       out.println("<a href='homepage-progetto'>Torna alla homepage</a>");
     }
 
