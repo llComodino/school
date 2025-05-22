@@ -20,10 +20,12 @@
         <p><strong>Nome:</strong> <%= user.getName() %></p>
         <p><strong>Cognome:</strong> <%= user.getSurname() %></p>
         <p><strong>Username:</strong> <%= user.getUsername() %></p>
-        <p><strong>Voti:</strong></p>
       </div>
 
+      <hr>
+
       <div class="box">
+        <p><strong>Voti:</strong></p>
         <table>
           <thead><th><span>Voto</span></th><th><span>Materia</span></th></thead>
           <tbody>
@@ -46,7 +48,7 @@
 
         <p>Media:
         <%
-          double avg = user.getAvg();
+          double avg = user.getGradeAvg();
           if ( avg < 6f && avg >= 5f ) {
         %>
           <span style="color: orange">
@@ -56,6 +58,7 @@
           <span style="color: green">
         <% } %>
         <%= avg %></span>
+        <br>
         <a href="addGrade.jsp">Aggiungi Voto</a>
       </div>
       <% } %>
