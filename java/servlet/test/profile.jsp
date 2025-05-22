@@ -27,8 +27,8 @@
         <table>
           <thead><th><span>Voto</span></th><th><span>Materia</span></th></thead>
           <tbody>
-          <% for (Grade grade : user.getGrades(true)) { >
-            <% 
+          <% for (Grade grade : user.getGrades(true)) { %>
+            <%
               int mark = grade.getMark();
               if ( mark < 6 && mark >= 5) {
             %>
